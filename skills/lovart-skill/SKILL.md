@@ -76,16 +76,19 @@ Use the `chat` command (blocks until done), NOT `send`. Do NOT reply before gene
 
 **Handle errors:**
 
-If `chat` throws an error, check the message and advise the user:
+If `chat` throws an error, first check the HTTP status code (available as `AgentSkillError.status_code`), then fall back to error-message matching:
 
-| Error contains | Meaning | What to tell the user |
-|---------------|---------|----------------------|
-| `1200000200` | Concurrent task limit | "A task is already running. Please wait for it to finish before starting a new one." |
-| `1200000136` | Insufficient credits | "Your credits are insufficient. Please top up or switch to unlimited mode: `set-mode --unlimited`" |
-| `1200000146` | Free tier limit reached | "Free tier limit reached. Please subscribe or switch to unlimited mode." |
-| `Task creation rejected` | Billing/quota issue | Show the specific reason code and suggest checking account status |
-| `Invalid signature` | AK/SK misconfigured | "API key authentication failed. Please check your LOVART_ACCESS_KEY and LOVART_SECRET_KEY." |
+| HTTP status / error contains | Meaning | What to tell the user |
+|---|---|---|
+| **`409`** (`code: 2011`, "Thread is busy") | Another task is still running on this thread | "A task is still running on this conversation. Wait for it to finish (`status`) before sending a new prompt, or start a new thread." |
+| **`402`** (`code: 2012`, "Task rejected") + body contains `1200000136` | Insufficient credits | "Your credits are insufficient. Please top up or switch to unlimited mode: `set-mode --unlimited`" |
+| **`402`** (`code: 2012`) + body contains `1200000200` | Concurrent task limit (cashier) | "You've hit the concurrent-task limit. Please wait for a running task to finish before starting a new one." |
+| **`402`** (`code: 2012`) + body contains `1200000146` | Free tier limit reached | "Free tier limit reached. Please subscribe or switch to unlimited mode." |
+| **`429`** (`code: 1429`, "Rate limit exceeded") | API rate limit hit | "Slowing down; rate limit hit. Retry in ~60s." |
+| `Invalid signature` / 401 | AK/SK misconfigured | "API key authentication failed. Please check your LOVART_ACCESS_KEY and LOVART_SECRET_KEY." |
 | `Project.*does not exist` | Invalid project ID | "Project not found. Please check the project ID or create a new one." |
+
+Note: errors from the skill carry both an HTTP status and a structured `code` in the response body. Prefer matching on status + code; the raw message is provided in `details` for diagnostics.
 
 # ⚠️ RULE #3: ALWAYS DELIVER RESULTS + PROJECT LINK
 
