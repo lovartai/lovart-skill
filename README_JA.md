@@ -120,6 +120,10 @@ python3 agent_skill.py chat --prompt "猫を描いて" \
 python3 agent_skill.py chat --prompt "この画像を拡大して" \
   --include-tools upscale_image --attachments "IMAGE_URL" --json --download
 
+# Thinking モード — 複雑なタスク向けの深い構造化推論
+python3 agent_skill.py chat --prompt "コーヒーブランドの VI 一式をデザインして" \
+  --mode thinking --json --download
+
 # プロジェクト管理
 python3 agent_skill.py projects
 python3 agent_skill.py project-add --project-id NEW_ID --name "ブランドキット"
@@ -167,7 +171,26 @@ Agent が使用するモデルを制御する 3 つの方法：
 | 動画 | `generate_video_vidu_q2` | Vidu Q2 |
 | 3D | `generate_3d_tripo` | Tripo |
 
+## 🧠 推論モード
+
+`--mode` でリクエストごとの agent 推論方式を制御できます：
+
+- **`fast`**（デフォルト） — 軽量なワンショット応答。高速・低コストで、単純な一発生成に適しています。
+- **`thinking`** — 深い構造化推論で、先にプランニングしてから多段階の分析を行います。複雑なブランドシステムやマルチアセットのキャンペーンなど、熟慮を要するタスクに適しています。やや遅いですが品質が高い。
+
+```bash
+# 高速ワンショット（デフォルト）
+python3 agent_skill.py chat --prompt "猫を描いて"
+
+# 深い推論
+python3 agent_skill.py chat --prompt "ブランドアイデンティティ一式をデザインして" --mode thinking
+```
+
+**モードは thread の初回メッセージ時に固定されます**。モードを切り替えるには新しい thread を開始してください（`--thread-id` を渡さない）。Lovart Web UI のモードトグルと同じ挙動です。
+
 ## ⚡ 生成モード
+
+推論モードとは別で、これはアカウントレベルの永続的な課金設定です：
 
 ```bash
 # 高速モード — クレジット消費、キューなし
@@ -180,20 +203,20 @@ python3 agent_skill.py set-mode --unlimited
 python3 agent_skill.py query-mode
 ```
 
-これはサーバー側の永続設定であり、プロンプトキーワードではありません。
-
 ## 🚦 レート制限
 
-API はアカウントごとにリクエスト頻度制限を適用します：
+API はエンドポイントの種類に応じて 2 段階のレート制限を適用します：
 
-| 時間枠 | デフォルト上限 |
-|--------|--------------|
-| 1 分あたり | 60 リクエスト |
-| 1 時間あたり | 600 リクエスト |
+| 階層 | エンドポイント | 毎分 | 毎時 |
+|------|---------------|------|------|
+| **Chat**（書き込み系） | `/chat`、`/chat/confirm` | 60 | 600 |
+| **Query**（読み取り系） | `/chat/status`、`/chat/result`、`/project/*`、`/mode/*` など | 300 | 3000 |
 
-これは**API レベル**の頻度制限であり、すべてのエンドポイント呼び出しに適用されます。生成モードとは無関係です。超過するとリクエストがスロットリングされます。
+厳しい Chat 階層は生成タスクを保護します。Query 階層はゆるやかで、ステータス/結果のポーリングが生成の予算を消費しません。
 
-これとは別に**生成の同時実行制限**があり、各 thread で一度に実行できる生成タスクは 1 つだけです。そのスレッドでタスク実行中に新しいリクエストを送ると拒否されます。異なる thread 間では並行実行が可能です。
+上限を超えると `HTTP 429` と `Retry-After: 60` ヘッダーを返します。
+
+これとは別に**生成の同時実行制限**があり、各 thread で一度に実行できる生成タスクは 1 つだけです。そのスレッドでタスク実行中に新しいリクエストを送ると `HTTP 409` で拒否されます。異なる thread 間では並行実行が可能です。
 
 Skill はネットワークの一時的なエラーに対して自動リトライ（3 回バックオフ）しますが、レート制限や課金エラーは即座に返されます。
 

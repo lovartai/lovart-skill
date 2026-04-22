@@ -120,6 +120,10 @@ python3 agent_skill.py chat --prompt "画一只猫" \
 python3 agent_skill.py chat --prompt "放大这张图" \
   --include-tools upscale_image --attachments "IMAGE_URL" --json --download
 
+# Thinking 模式 — 面向复杂任务的深度结构化推理
+python3 agent_skill.py chat --prompt "为咖啡品牌设计一套完整 VI" \
+  --mode thinking --json --download
+
 # 项目管理
 python3 agent_skill.py projects
 python3 agent_skill.py project-add --project-id NEW_ID --name "我的品牌套件"
@@ -167,7 +171,26 @@ python3 agent_skill.py threads
 | 视频 | `generate_video_vidu_q2` | Vidu Q2 |
 | 3D | `generate_3d_tripo` | Tripo |
 
+## 🧠 推理模式
+
+通过 `--mode` 控制每次请求的 agent 推理方式：
+
+- **`fast`**（默认）— 轻量单轮响应。更快、更省，适合简单的一次性生成。
+- **`thinking`** — 深度结构化推理，先规划再执行，支持多步分析。适合复杂的品牌体系、多素材活动等需要深思熟虑的任务。速度稍慢但质量更高。
+
+```bash
+# 快速单轮（默认）
+python3 agent_skill.py chat --prompt "画一只猫"
+
+# 深度推理
+python3 agent_skill.py chat --prompt "设计一整套品牌识别" --mode thinking
+```
+
+**模式在 thread 首条消息时锁定**。要切换模式请开新 thread（不传 `--thread-id`）。对齐 Lovart Web UI 的模式切换。
+
 ## ⚡ 生成模式
+
+与推理模式无关，这是账户级的持久化计费设置：
 
 ```bash
 # 快速模式 — 消耗积分，无需排队
@@ -180,20 +203,20 @@ python3 agent_skill.py set-mode --unlimited
 python3 agent_skill.py query-mode
 ```
 
-这是服务端持久化设置，不是 prompt 关键词。
-
 ## 🚦 频率限制
 
-API 对每个账户有请求频率限制：
+API 按接口类型分两档限流：
 
-| 时间窗口 | 默认上限 |
-|---------|---------|
-| 每分钟 | 60 次请求 |
-| 每小时 | 600 次请求 |
+| 档位 | 接口 | 每分钟 | 每小时 |
+|------|------|-------|-------|
+| **Chat**（写接口） | `/chat`、`/chat/confirm` | 60 | 600 |
+| **Query**（读接口） | `/chat/status`、`/chat/result`、`/project/*`、`/mode/*` 等其余接口 | 300 | 3000 |
 
-这是 **API 层**的频率限制，针对所有接口调用，跟生成模式无关。超出后请求会被限流。
+更严的 Chat 档保护生成任务；Query 档宽松很多，方便轮询状态/结果不占用生成配额。
 
-另外还有**生成并发限制**——每个 thread 同一时间只能运行一个生成任务。如果该 thread 已有任务在跑，新请求会被拒绝，需等当前任务完成。不同 thread 之间可以并行。
+超出后返回 `HTTP 429`，响应头带 `Retry-After: 60`。
+
+另外还有**生成并发限制**——每个 thread 同一时间只能运行一个生成任务。如果该 thread 已有任务在跑，新请求会被拒绝（返回 `HTTP 409`），需等当前任务完成。不同 thread 之间可以并行。
 
 Skill 对网络瞬时错误会自动重试（3 次退避），但频率限制和计费错误会直接返回。
 

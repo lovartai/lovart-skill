@@ -120,6 +120,10 @@ python3 agent_skill.py chat --prompt "draw a cat" \
 python3 agent_skill.py chat --prompt "upscale this image" \
   --include-tools upscale_image --attachments "IMAGE_URL" --json --download
 
+# Thinking mode — deep structured reasoning for complex requests
+python3 agent_skill.py chat --prompt "design a brand identity for a coffee startup" \
+  --mode thinking --json --download
+
 # Project management
 python3 agent_skill.py projects
 python3 agent_skill.py project-add --project-id NEW_ID --name "My Brand Kit"
@@ -167,33 +171,52 @@ Available models:
 | VIDEO | `generate_video_vidu_q2` | Vidu Q2 |
 | 3D | `generate_3d_tripo` | Tripo |
 
-## ⚡ Generation modes
+## 🧠 Reasoning modes
+
+Control how the agent thinks per request via `--mode`:
+
+- **`fast`** (default) — lightweight single-pass response. Faster, cheaper, suitable for simple one-shot generations.
+- **`thinking`** — deep structured reasoning with planning and multi-step analysis. Use for complex brand systems, multi-asset campaigns, anything that benefits from deliberate planning. Slower but higher quality.
 
 ```bash
-# Fast mode — costs credits, no queue
+# Quick, single-shot (default)
+python3 agent_skill.py chat --prompt "draw a cat"
+
+# Deliberate, plan-first reasoning
+python3 agent_skill.py chat --prompt "design a full brand identity" --mode thinking
+```
+
+**Mode is locked to the thread on its first message.** To switch modes, start a new thread (omit `--thread-id`). Mirrors the Lovart web UI toggle.
+
+## ⚡ Billing modes
+
+Separate from reasoning mode. This is a persistent account-level billing setting:
+
+```bash
+# Fast — costs credits, no queue
 python3 agent_skill.py set-mode --fast
 
-# Unlimited mode — free, may queue
+# Unlimited — free, may queue
 python3 agent_skill.py set-mode --unlimited
 
-# Check current mode
+# Check current
 python3 agent_skill.py query-mode
 ```
 
-This is a persistent server-side setting, not a prompt keyword.
-
 ## 🚦 Rate limits
 
-The API enforces per-account request frequency limits:
+The API enforces per-account request frequency limits, split into two tiers based on the endpoint you hit:
 
-| Window | Default limit |
-|--------|--------------|
-| Per minute | 60 requests |
-| Per hour | 600 requests |
+| Tier | Endpoints | Per minute | Per hour |
+|------|-----------|-----------|---------|
+| **Chat** (write) | `/chat`, `/chat/confirm` | 60 | 600 |
+| **Query** (read) | `/chat/status`, `/chat/result`, `/project/*`, `/mode/*`, everything else | 300 | 3000 |
 
-These are **API-level** rate limits on how often you can call any endpoint, independent of generation mode. If exceeded, requests will be throttled.
+The stricter `Chat` tier protects generation. The `Query` tier is much looser so polling for status/results doesn't eat into your generation budget.
 
-This is separate from **generation concurrency** — each thread can only run one generation task at a time. If a task is already running in a thread, new requests to that thread will be rejected until it finishes. You can run tasks in different threads concurrently.
+Exceeding a limit returns `HTTP 429` with `Retry-After: 60`.
+
+This is separate from **generation concurrency** — each thread can only run one generation task at a time. If a task is already running in a thread, new requests to that thread are rejected with `HTTP 409` until it finishes. You can run tasks in different threads concurrently.
 
 The skill auto-retries on transient network errors (3 attempts with backoff), but rate limit and billing errors are returned immediately.
 
