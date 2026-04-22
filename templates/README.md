@@ -1,5 +1,3 @@
-<!-- This file is auto-generated from templates/README.md. Do not edit directly — edit the template and let CI regenerate. -->
-
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/lovart-icon.svg" />
@@ -143,6 +141,8 @@ You can control which model the Agent uses in three ways:
 
 Available models (auto-synced from the live API — do not edit by hand):
 
+<!-- AUTOGEN:models:start -->
+
 | Category | Tool name | Display name | Premium |
 |---|---|---|---|
 | IMAGE | `generate_image_flux_2_max` | Flux.2 Max |  |
@@ -186,6 +186,8 @@ Available models (auto-synced from the live API — do not edit by hand):
 | VIDEO | `runway` | Runway Gen4 |  |
 | 3D | `generate_3d_rodin` | Rodin |  |
 | 3D | `generate_3d_tripo` | Tripo |  |
+
+<!-- AUTOGEN:models:end -->
 
 ## 🧠 Reasoning modes
 

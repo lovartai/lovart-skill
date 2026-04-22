@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
-"""Regenerate the model tables in README.md / README_CN.md / README_TW.md / README_JA.md
-from the agent-openapi public catalog endpoint.
+"""Render the 4 root READMEs from templates/<name>.md + the live model catalog.
 
-Each README has an auto-generated block delimited by:
+Templates live in `templates/` and use two marker lines to delimit the model
+block:
 
     <!-- AUTOGEN:models:start -->
-    ...
+    ... placeholder / previous table, ignored ...
     <!-- AUTOGEN:models:end -->
 
-Run locally:
-    CATALOG_URL=https://lgw.pre.lovart.cloud/v1/openapi/tools/catalog python3 scripts/sync_models.py
+On run, the script fetches `/v1/openapi/tools/catalog`, renders a localized
+table per README, and writes the combined output to the repo root. The root
+files are fully generated (no markers, prefixed with an "auto-generated"
+banner) so users never see scaffolding on GitHub.
 
-In CI: defaults to the prod gateway.
+Local run:
+    CATALOG_URL=https://lgw.pre.lovart.cloud/v1/openapi/tools/catalog \\
+        python3 scripts/sync_models.py
+
+CI uses the prod gateway by default.
 """
 
 from __future__ import annotations
@@ -35,21 +41,25 @@ LOCALES = {
         "category": {"IMAGE": "IMAGE", "VIDEO": "VIDEO", "3D": "3D"},
         "headers": ["Category", "Tool name", "Display name", "Premium"],
         "premium": "⭐ Premium",
+        "banner": "<!-- This file is auto-generated from templates/README.md. Do not edit directly — edit the template and let CI regenerate. -->",
     },
     "README_CN.md": {
         "category": {"IMAGE": "图片", "VIDEO": "视频", "3D": "3D"},
         "headers": ["类别", "Tool name", "显示名", "会员专属"],
         "premium": "⭐",
+        "banner": "<!-- 本文件由 templates/README_CN.md 自动生成，请勿直接修改根目录文件；修改模板后 CI 会重新生成。 -->",
     },
     "README_TW.md": {
         "category": {"IMAGE": "圖片", "VIDEO": "影片", "3D": "3D"},
         "headers": ["類別", "Tool name", "顯示名", "會員專屬"],
         "premium": "⭐",
+        "banner": "<!-- 本檔案由 templates/README_TW.md 自動生成，請勿直接修改根目錄檔案；修改範本後 CI 會重新生成。 -->",
     },
     "README_JA.md": {
         "category": {"IMAGE": "画像", "VIDEO": "動画", "3D": "3D"},
         "headers": ["カテゴリ", "Tool name", "表示名", "プレミアム"],
         "premium": "⭐",
+        "banner": "<!-- このファイルは templates/README_JA.md から自動生成されます。直接編集せず、テンプレートを編集してください。 -->",
     },
 }
 
@@ -90,21 +100,28 @@ def render_table(tools: list[dict], locale: dict) -> str:
     return "\n".join(lines)
 
 
-def splice_block(content: str, table: str) -> str:
+def render_from_template(template: str, table: str, banner: str) -> str:
+    """Replace the AUTOGEN block with the rendered table AND strip the markers,
+    prepend the banner."""
     try:
-        i = content.index(BEGIN)
-        j = content.index(END, i)
+        i = template.index(BEGIN)
+        j = template.index(END, i) + len(END)
     except ValueError:
-        raise SystemExit(
-            f"markers {BEGIN} / {END} missing; run the initial migration first"
-        )
-    prefix = content[: i + len(BEGIN)]
-    suffix = content[j:]
-    return f"{prefix}\n\n{table}\n\n{suffix}"
+        raise SystemExit(f"template missing {BEGIN} / {END} markers")
+    # Strip the block including markers; rstrip trailing whitespace from prefix
+    # and lstrip leading whitespace from suffix so we don't leave blank-line gunk.
+    prefix = template[:i].rstrip() + "\n\n"
+    suffix = "\n\n" + template[j:].lstrip()
+    body = f"{prefix}{table}{suffix}"
+    return f"{banner}\n\n{body}"
 
 
 def main() -> int:
     root = pathlib.Path(__file__).resolve().parent.parent
+    templates_dir = root / "templates"
+    if not templates_dir.is_dir():
+        raise SystemExit(f"templates dir not found at {templates_dir}")
+
     tools = fetch_catalog(CATALOG_URL)
     print(
         f"fetched {len(tools)} tools ({sum(1 for t in tools if t.get('is_premium'))} premium) from {CATALOG_URL}",
@@ -112,19 +129,21 @@ def main() -> int:
     )
     changed = []
     for filename, locale in LOCALES.items():
-        path = root / filename
-        if not path.exists():
-            print(f"skip missing {filename}", file=sys.stderr)
+        src = templates_dir / filename
+        dst = root / filename
+        if not src.exists():
+            print(f"skip missing template {src}", file=sys.stderr)
             continue
-        before = path.read_text(encoding="utf-8")
+        template = src.read_text(encoding="utf-8")
         table = render_table(tools, locale)
-        after = splice_block(before, table)
-        if after != before:
-            path.write_text(after, encoding="utf-8")
+        rendered = render_from_template(template, table, locale["banner"])
+        before = dst.read_text(encoding="utf-8") if dst.exists() else ""
+        if rendered != before:
+            dst.write_text(rendered, encoding="utf-8")
             changed.append(filename)
-            print(f"updated {filename}", file=sys.stderr)
+            print(f"wrote {dst.relative_to(root)}", file=sys.stderr)
         else:
-            print(f"unchanged {filename}", file=sys.stderr)
+            print(f"unchanged {dst.relative_to(root)}", file=sys.stderr)
     if changed:
         print("CHANGED:" + ",".join(changed))
     return 0

@@ -1,5 +1,3 @@
-<!-- 本檔案由 templates/README_TW.md 自動生成，請勿直接修改根目錄檔案；修改範本後 CI 會重新生成。 -->
-
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/lovart-icon.svg" />
@@ -143,6 +141,8 @@ python3 agent_skill.py threads
 
 可用模型（自動同步，勿手動編輯）：
 
+<!-- AUTOGEN:models:start -->
+
 | 類別 | Tool name | 顯示名 | 會員專屬 |
 |---|---|---|---|
 | 圖片 | `generate_image_flux_2_max` | Flux.2 Max |  |
@@ -186,6 +186,8 @@ python3 agent_skill.py threads
 | 影片 | `runway` | Runway Gen4 |  |
 | 3D | `generate_3d_rodin` | Rodin |  |
 | 3D | `generate_3d_tripo` | Tripo |  |
+
+<!-- AUTOGEN:models:end -->
 
 ## 🧠 推理模式
 

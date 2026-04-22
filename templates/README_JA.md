@@ -1,5 +1,3 @@
-<!-- このファイルは templates/README_JA.md から自動生成されます。直接編集せず、テンプレートを編集してください。 -->
-
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/lovart-icon.svg" />
@@ -143,6 +141,8 @@ Agent が使用するモデルを制御する 3 つの方法：
 
 利用可能なモデル（自動同期、手動編集禁止）：
 
+<!-- AUTOGEN:models:start -->
+
 | カテゴリ | Tool name | 表示名 | プレミアム |
 |---|---|---|---|
 | 画像 | `generate_image_flux_2_max` | Flux.2 Max |  |
@@ -186,6 +186,8 @@ Agent が使用するモデルを制御する 3 つの方法：
 | 動画 | `runway` | Runway Gen4 |  |
 | 3D | `generate_3d_rodin` | Rodin |  |
 | 3D | `generate_3d_tripo` | Tripo |  |
+
+<!-- AUTOGEN:models:end -->
 
 ## 🧠 推論モード
 
