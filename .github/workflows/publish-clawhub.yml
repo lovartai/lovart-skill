@@ -1,14 +1,13 @@
 name: Publish to ClawHub
 
 # Publishes the skill at skills/lovart-skill to clawhub.com via the
-# `clawhub` CLI (bunx). Simpler than the reusable `package-publish.yml`
-# route because skills don't need openclaw.bundle.json / package.json
-# manifests — `clawhub publish <path>` reads SKILL.md frontmatter.
+# `clawhub` CLI (bunx). The skill command has no --dry-run, so preview
+# is done in a separate validate job that just parses SKILL.md frontmatter.
 #
 # Triggers:
-#   - Tag push (v*)       → real publish (version derived from tag name)
-#   - Pull request        → dry-run preview (no mutation)
-#   - Manual dispatch     → user picks dry_run + version override
+#   - Tag push (v*)     → real publish (version = tag without `v` prefix)
+#   - Pull request      → validate only (no publish)
+#   - Manual dispatch   → real publish (version override optional)
 #
 # Required repo secret: CLAWHUB_TOKEN (a clh_... token from clawhub.com).
 
@@ -23,10 +22,6 @@ on:
       - ".github/workflows/publish-clawhub.yml"
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "Dry run (preview only, no real publish)"
-        type: boolean
-        default: true
       version:
         description: "Override version (default: git tag without v prefix)"
         required: false
@@ -36,11 +31,32 @@ permissions:
   contents: read
 
 jobs:
-  publish:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Validate SKILL.md frontmatter
+        run: |
+          python3 <<'PY'
+          import yaml, sys
+          text = open("skills/lovart-skill/SKILL.md").read()
+          if not text.startswith("---"):
+              sys.exit("SKILL.md missing YAML frontmatter")
+          fm = text.split("---", 2)[1]
+          data = yaml.safe_load(fm)
+          required = ("name", "description")
+          missing = [k for k in required if not data.get(k)]
+          if missing:
+              sys.exit(f"missing required frontmatter fields: {missing}")
+          print(f"valid: name={data['name']!r}")
+          PY
 
+  publish:
+    needs: validate
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
 
       - name: Resolve version
@@ -51,21 +67,11 @@ jobs:
           elif [[ "$GITHUB_REF" == refs/tags/v* ]]; then
             V="${GITHUB_REF#refs/tags/v}"
           else
-            V="0.0.0-preview"
+            echo "::error::Manual dispatch requires --version input (no git tag present)"
+            exit 1
           fi
           echo "version=$V" >> "$GITHUB_OUTPUT"
           echo "Resolved version: $V"
-
-      - name: Determine dry-run flag
-        id: dry
-        run: |
-          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
-            echo "flag=--dry-run" >> "$GITHUB_OUTPUT"
-          elif [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" && "${{ inputs.dry_run }}" == "true" ]]; then
-            echo "flag=--dry-run" >> "$GITHUB_OUTPUT"
-          else
-            echo "flag=" >> "$GITHUB_OUTPUT"
-          fi
 
       - name: Login to ClawHub
         env:
@@ -80,7 +86,6 @@ jobs:
       - name: Publish
         run: |
           bunx clawhub publish skills/lovart-skill \
-            --slug lovart-admin/lovart-skill \
+            --slug lovart-skill \
             --version "${{ steps.version.outputs.version }}" \
-            --tags latest \
-            ${{ steps.dry.outputs.flag }}
+            --tags latest
