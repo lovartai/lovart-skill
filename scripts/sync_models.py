@@ -65,7 +65,13 @@ LOCALES = {
 
 
 def fetch_catalog(url: str) -> list[dict]:
-    req = urllib.request.Request(url, headers={"Accept": "application/json"})
+    # Cloudflare bot-management blocks the default `Python-urllib/*` UA with
+    # a 403 at the edge; present a real-looking UA instead.
+    headers = {
+        "Accept": "application/json",
+        "User-Agent": "lovart-skill-sync/1.0 (+https://github.com/lovartai/lovart-skill)",
+    }
+    req = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(req, timeout=15) as resp:
         body = json.loads(resp.read().decode())
     data = body.get("data") or {}
