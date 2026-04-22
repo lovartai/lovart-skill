@@ -1,0 +1,62 @@
+name: Publish to ClawHub
+
+# Publishes the skill to clawhub.com via the reusable workflow
+# `openclaw/clawhub/.github/workflows/package-publish.yml`.
+#
+# Triggers:
+#   - Tag push (`v*`)   → real publish (dry_run=false)
+#   - Pull request      → dry-run preview (reusable workflow comments on the PR)
+#   - Manual dispatch   → user picks dry_run, may override version/tags/owner
+#
+# The reusable workflow reads the skill from the caller's checkout
+# (`source: ""`), so no explicit upload step is needed.
+#
+# Pinned to the exact commit of package-publish.yml at openclaw/clawhub
+# (2026-04-03, "Fix reusable package publish workflow #1505"). Bump when
+# upstream ships a new version; pinning to `@main` would float.
+#
+# Required repo secret: CLAWHUB_TOKEN (a `clh_...` token from clawhub.com).
+
+on:
+  push:
+    tags: ["v*"]
+  pull_request:
+    paths:
+      - "skills/**"
+      - "templates/**"
+      - "scripts/sync_models.py"
+      - ".github/workflows/publish-clawhub.yml"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (preview only, no real publish)"
+        type: boolean
+        default: true
+      version:
+        description: "Override version (default: from git tag / SKILL.md)"
+        required: false
+        default: ""
+      tags:
+        description: "Override skill tags (comma-separated)"
+        required: false
+        default: ""
+      owner:
+        description: "Override ClawHub namespace/owner"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  publish:
+    uses: openclaw/clawhub/.github/workflows/package-publish.yml@4af2bd5
+    with:
+      source: ""
+      dry_run: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) || false }}
+      version: ${{ github.event_name == 'workflow_dispatch' && inputs.version || '' }}
+      tags: ${{ github.event_name == 'workflow_dispatch' && inputs.tags || '' }}
+      owner: ${{ github.event_name == 'workflow_dispatch' && inputs.owner || '' }}
+    secrets:
+      clawhub_token: ${{ secrets.CLAWHUB_TOKEN }}
