@@ -427,6 +427,25 @@ python3 {baseDir}/agent_skill.py chat --prompt "generate a video" --include-tool
 
 `--include-tools` strongly instructs the Agent to prioritize the listed tools. Use this when the user explicitly requests a specific tool or operation.
 
+## Reasoning Mode — `--mode thinking` / `--mode fast`
+
+Lovart has two reasoning modes you can select per thread:
+
+- **`fast`** (default) — lightweight single-pass response. Use for simple, one-shot generations where speed matters.
+- **`thinking`** — deep structured reasoning with planning and multi-step analysis. Use for complex brand systems, multi-asset campaigns, anything that benefits from deliberate planning. Slower but higher quality.
+
+Omitting `--mode` is equivalent to `--mode fast`, matching the web UI's default.
+
+```bash
+# Thinking mode — strategic, multi-step
+python3 {baseDir}/agent_skill.py chat --prompt "design a brand identity system for a sustainable coffee startup" --mode thinking --json --download
+
+# Fast mode — quick one-shot
+python3 {baseDir}/agent_skill.py chat --prompt "draw a cat" --mode fast --json --download
+```
+
+**Mode is locked to the thread on its first message.** Once you start a thread with `--mode thinking`, subsequent messages on the same `--thread-id` stay in thinking mode regardless of later `--mode` flags. To switch modes, start a new thread (omit `--thread-id`).
+
 ## Task-Specific Tool Selection (IMPORTANT)
 
 When the user's request matches a specific operation, use `--include-tools` to ensure the correct tool:

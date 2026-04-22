@@ -253,18 +253,25 @@ class AgentSkill:
     # ── Chat ─────────────────────────────────────────────────────────
 
     def send(self, prompt: str, project_id: str, attachments=None, thread_id=None,
-             prefer_models=None, include_tools=None, exclude_tools=None) -> str:
+             prefer_models=None, include_tools=None, exclude_tools=None,
+             mode: Optional[str] = None) -> str:
         """Send a chat message. Returns thread_id.
 
         prefer_models: dict mapping category to list of tool names (soft preference)
         include_tools: list of tool names to force use (hard constraint)
         exclude_tools: list of tool names to exclude (hard constraint)
+        mode: 'thinking' for deep structured reasoning, or 'fast' for
+              lightweight single-pass. Default is 'fast' (matches the web
+              UI). Mode is locked to the thread on the first message — to
+              switch, start a new thread.
         """
         body = {"prompt": prompt, "project_id": project_id}
         if attachments:
             body["attachments"] = attachments
         if thread_id:
             body["thread_id"] = thread_id
+        if mode:
+            body["mode"] = mode
         tc = {}
         if prefer_models:
             tc["prefer_tool_categories"] = prefer_models
@@ -354,8 +361,13 @@ class AgentSkill:
     def chat(self, prompt: str, project_id: Optional[str] = None,
              attachments=None, thread_id=None,
              timeout=None, auto_create_project=True,
-             prefer_models=None, include_tools=None, exclude_tools=None) -> dict:
-        """Send → poll → get result. One-shot convenience method."""
+             prefer_models=None, include_tools=None, exclude_tools=None,
+             mode: Optional[str] = None) -> dict:
+        """Send → poll → get result. One-shot convenience method.
+
+        mode: 'thinking' for deep reasoning, 'fast' for lightweight single-pass.
+              Locked to the thread after the first message.
+        """
         auto_created = False
         if not project_id:
             if auto_create_project:
@@ -373,7 +385,8 @@ class AgentSkill:
         tid = self.send(prompt=prompt, project_id=project_id,
                         attachments=attachments, thread_id=thread_id,
                         prefer_models=prefer_models,
-                        include_tools=include_tools, exclude_tools=exclude_tools)
+                        include_tools=include_tools, exclude_tools=exclude_tools,
+                        mode=mode)
         status = self.poll(tid, timeout=timeout)
 
         if status == "pending_confirmation":
@@ -579,6 +592,8 @@ def main():
                    help="Force use only these tools, e.g. upscale_image")
     p.add_argument("--exclude-tools", nargs="*", default=None,
                    help="Exclude these tools")
+    p.add_argument("--mode", choices=["thinking", "fast"], default=None,
+                   help="Reasoning mode: 'thinking' for deep structured reasoning, 'fast' for lightweight single-pass. Locked per thread.")
 
     # send (non-blocking: just send, return thread_id immediately)
     p = sub.add_parser("send")
@@ -586,6 +601,8 @@ def main():
     p.add_argument("--project-id", default=None)
     p.add_argument("--thread-id", default=None, help="Reuse thread for context continuity")
     p.add_argument("--attachments", nargs="*", default=None)
+    p.add_argument("--mode", choices=["thinking", "fast"], default=None,
+                   help="Reasoning mode: 'thinking' or 'fast'. Locked per thread.")
 
     # watch (stream partial results: send + incremental polling, emits NDJSON per completed artifact)
     p = sub.add_parser("watch", help="Send a prompt (or attach to existing thread) and stream artifacts as they complete")
@@ -595,6 +612,8 @@ def main():
     p.add_argument("--attachments", nargs="*", default=None)
     p.add_argument("--output-dir", default="/tmp/openclaw")
     p.add_argument("--interval", type=int, default=3, help="Poll interval in seconds")
+    p.add_argument("--mode", choices=["thinking", "fast"], default=None,
+                   help="Reasoning mode: 'thinking' or 'fast'. Locked per thread.")
 
     # create-project
     sub.add_parser("create-project")
@@ -787,7 +806,8 @@ def main():
                                 attachments=args.attachments, thread_id=args.thread_id,
                                 prefer_models=prefer_models,
                                 include_tools=args.include_tools,
-                                exclude_tools=args.exclude_tools)
+                                exclude_tools=args.exclude_tools,
+                                mode=args.mode)
 
             # Auto-save state
             if result.get("project_id"):
@@ -821,7 +841,8 @@ def main():
             if not project_id:
                 project_id = skill.create_project()
             tid = skill.send(prompt=args.prompt, project_id=project_id,
-                             attachments=args.attachments, thread_id=args.thread_id)
+                             attachments=args.attachments, thread_id=args.thread_id,
+                             mode=args.mode)
             state.add_project(project_id, args.prompt[:30].strip())
             state.upsert_thread(tid, args.prompt[:50].strip())
             print(json.dumps({"thread_id": tid, "project_id": project_id}))
@@ -840,7 +861,7 @@ def main():
                 if not project_id:
                     project_id = skill.create_project()
                 tid = skill.send(prompt=args.prompt, project_id=project_id,
-                                 attachments=args.attachments)
+                                 attachments=args.attachments, mode=args.mode)
                 state.add_project(project_id, args.prompt[:30].strip())
                 state.upsert_thread(tid, args.prompt[:50].strip())
 
