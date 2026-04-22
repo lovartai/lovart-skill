@@ -139,37 +139,55 @@ python3 agent_skill.py threads
 2. **`--prefer-models`**（软偏好）— `'{"IMAGE":["generate_image_midjourney"]}'`
 3. **`--include-tools`**（硬约束）— `upscale_image`
 
-可用模型：
+可用模型（自动同步，勿手动编辑）：
 
-| 类别 | Tool name | 显示名 |
-|------|-----------|--------|
-| 图片 | `generate_image_midjourney` | Midjourney |
-| 图片 | `generate_image_nano_banana_pro` | Nano Banana Pro |
-| 图片 | `generate_image_nano_banana_2` | Nano Banana 2 |
-| 图片 | `generate_image_nano_banana` | Nano Banana |
-| 图片 | `generate_image_gpt_image_1_5` | GPT Image 1.5 |
-| 图片 | `generate_image_seedream_v5` | Seedream 5.0 Lite |
-| 图片 | `generate_image_seedream_v4_5` | Seedream 4.5 |
-| 图片 | `generate_image_seedream_v4` | Seedream 4 |
-| 图片 | `generate_image_imagen_v4` | Gemini Imagen 4 |
-| 图片 | `generate_image_flux_2_max` | Flux.2 Max |
-| 图片 | `generate_image_flux_2_pro` | Flux.2 Pro |
-| 视频 | `generate_video_seedance_v2_0` | Seedance 2.0 |
-| 视频 | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast |
-| 视频 | `generate_video_seedance_pro_v1_5` | Seedance 1.5 Pro |
-| 视频 | `generate_video_kling_v3` | Kling 3.0 |
-| 视频 | `generate_video_kling_v3_omni` | Kling 3.0 Omni |
-| 视频 | `generate_video_kling_v2_6` | Kling 2.6 |
-| 视频 | `generate_video_kling_omni_v1` | Kling O1 |
-| 视频 | `generate_video_veo3_1` | Veo 3.1 |
-| 视频 | `generate_video_veo3_1_fast` | Veo 3.1 Fast |
-| 视频 | `generate_video_veo3` | Veo 3 |
-| 视频 | `generate_video_sora_v2_pro` | Sora 2 Pro |
-| 视频 | `generate_video_sora_v2` | Sora 2 |
-| 视频 | `generate_video_wan_v2_6` | Wan 2.6 |
-| 视频 | `generate_video_hailuo_v2_3` | Hailuo 2.3 |
-| 视频 | `generate_video_vidu_q2` | Vidu Q2 |
-| 3D | `generate_3d_tripo` | Tripo |
+<!-- AUTOGEN:models:start -->
+
+| 类别 | Tool name | 显示名 | 会员专属 |
+|---|---|---|---|
+| 图片 | `generate_image_flux_2_max` | Flux.2 Max |  |
+| 图片 | `generate_image_flux_2_pro` | Flux.2 Pro |  |
+| 图片 | `generate_image_gpt_image` | GPT Image |  |
+| 图片 | `generate_image_gpt_image_1_5` | GPT Image 1.5 |  |
+| 图片 | `generate_image_gpt_image_2` | GPT Image 2 Auto |  |
+| 图片 | `generate_image_gpt_image_2_high` | GPT Image 2 High |  |
+| 图片 | `generate_image_gpt_image_2_low` | GPT Image 2 Low |  |
+| 图片 | `generate_image_gpt_image_2_medium` | GPT Image 2 Medium |  |
+| 图片 | `generate_image_imagen_v4` | Gemini Imagen 4 |  |
+| 图片 | `generate_image_midjourney` | Midjourney |  |
+| 图片 | `generate_image_nano_banana` | Nano Banana |  |
+| 图片 | `generate_image_nano_banana_2` | Nano Banana 2 |  |
+| 图片 | `generate_image_nano_banana_pro` | Nano Banana Pro |  |
+| 图片 | `generate_image_seedream_v4` | Seedream 4 |  |
+| 图片 | `generate_image_seedream_v4_5` | Seedream 4.5 |  |
+| 图片 | `generate_image_seedream_v5` | Seedream 5.0 Lite |  |
+| 视频 | `gemini_veo2` | Gemini Veo 2 |  |
+| 视频 | `generate_video_hailuo_v02` | Hailuo-02 |  |
+| 视频 | `generate_video_hailuo_v2_3` | Hailuo 2.3 |  |
+| 视频 | `generate_video_kling_omni_v1` | Kling O1 | ⭐ |
+| 视频 | `generate_video_kling_v2_5_turbo` | Kling 2.5 Turbo | ⭐ |
+| 视频 | `generate_video_kling_v2_6` | Kling 2.6 | ⭐ |
+| 视频 | `generate_video_kling_v3` | Kling 3.0 | ⭐ |
+| 视频 | `generate_video_kling_v3_omni` | Kling 3.0 Omni | ⭐ |
+| 视频 | `generate_video_ltx_v2` | LTXV 2.0 |  |
+| 视频 | `generate_video_seedance_pro_v1_5` | Seedance 1.5 Pro |  |
+| 视频 | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ |
+| 视频 | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ |
+| 视频 | `generate_video_sora_v2` | Sora 2 | ⭐ |
+| 视频 | `generate_video_sora_v2_pro` | Sora 2 Pro | ⭐ |
+| 视频 | `generate_video_veo3` | Veo 3 | ⭐ |
+| 视频 | `generate_video_veo3_1` | Veo 3.1 | ⭐ |
+| 视频 | `generate_video_veo3_1_fast` | Veo 3.1 Fast | ⭐ |
+| 视频 | `generate_video_vidu_q2` | Vidu Q2 |  |
+| 视频 | `generate_video_wan_v2_5` | Wan 2.5 |  |
+| 视频 | `generate_video_wan_v2_6` | Wan 2.6 |  |
+| 视频 | `kling_1_6` | Kling 1.6 |  |
+| 视频 | `minimax_video_generator` | Hailuo-01 |  |
+| 视频 | `runway` | Runway Gen4 |  |
+| 3D | `generate_3d_rodin` | Rodin |  |
+| 3D | `generate_3d_tripo` | Tripo |  |
+
+<!-- AUTOGEN:models:end -->
 
 ## 🧠 推理模式
 
