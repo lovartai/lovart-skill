@@ -1,21 +1,16 @@
 name: Publish to ClawHub
 
-# Publishes the skill to clawhub.com via the reusable workflow
-# `openclaw/clawhub/.github/workflows/package-publish.yml`.
+# Publishes the skill at skills/lovart-skill to clawhub.com via the
+# `clawhub` CLI (bunx). Simpler than the reusable `package-publish.yml`
+# route because skills don't need openclaw.bundle.json / package.json
+# manifests — `clawhub publish <path>` reads SKILL.md frontmatter.
 #
 # Triggers:
-#   - Tag push (`v*`)   → real publish (dry_run=false)
-#   - Pull request      → dry-run preview (reusable workflow comments on the PR)
-#   - Manual dispatch   → user picks dry_run, may override version/tags/owner
+#   - Tag push (v*)       → real publish (version derived from tag name)
+#   - Pull request        → dry-run preview (no mutation)
+#   - Manual dispatch     → user picks dry_run + version override
 #
-# The reusable workflow reads the skill from the caller's checkout
-# (`source: ""`), so no explicit upload step is needed.
-#
-# Pinned to the exact commit of package-publish.yml at openclaw/clawhub
-# (2026-04-03, "Fix reusable package publish workflow #1505"). Bump when
-# upstream ships a new version; pinning to `@main` would float.
-#
-# Required repo secret: CLAWHUB_TOKEN (a `clh_...` token from clawhub.com).
+# Required repo secret: CLAWHUB_TOKEN (a clh_... token from clawhub.com).
 
 on:
   push:
@@ -33,31 +28,59 @@ on:
         type: boolean
         default: true
       version:
-        description: "Override version (default: from git tag / SKILL.md)"
-        required: false
-        default: ""
-      tags:
-        description: "Override skill tags (comma-separated)"
-        required: false
-        default: ""
-      owner:
-        description: "Override ClawHub namespace/owner"
+        description: "Override version (default: git tag without v prefix)"
         required: false
         default: ""
 
 permissions:
   contents: read
-  pull-requests: write
-  id-token: write   # OIDC token — reusable workflow needs it to auth with clawhub.ai
 
 jobs:
   publish:
-    uses: openclaw/clawhub/.github/workflows/package-publish.yml@4af2bd50a71465683dbf8aa269af764b9d39bdf5
-    with:
-      source: ""
-      dry_run: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) || false }}
-      version: ${{ github.event_name == 'workflow_dispatch' && inputs.version || '' }}
-      tags: ${{ github.event_name == 'workflow_dispatch' && inputs.tags || '' }}
-      owner: ${{ github.event_name == 'workflow_dispatch' && inputs.owner || '' }}
-    secrets:
-      clawhub_token: ${{ secrets.CLAWHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Resolve version
+        id: version
+        run: |
+          if [[ -n "${{ inputs.version }}" ]]; then
+            V="${{ inputs.version }}"
+          elif [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            V="${GITHUB_REF#refs/tags/v}"
+          else
+            V="0.0.0-preview"
+          fi
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          echo "Resolved version: $V"
+
+      - name: Determine dry-run flag
+        id: dry
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            echo "flag=--dry-run" >> "$GITHUB_OUTPUT"
+          elif [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" && "${{ inputs.dry_run }}" == "true" ]]; then
+            echo "flag=--dry-run" >> "$GITHUB_OUTPUT"
+          else
+            echo "flag=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Login to ClawHub
+        env:
+          CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+        run: |
+          if [[ -z "$CLAWHUB_TOKEN" ]]; then
+            echo "::error::CLAWHUB_TOKEN secret is required"
+            exit 1
+          fi
+          bunx clawhub login --token "$CLAWHUB_TOKEN"
+
+      - name: Publish
+        run: |
+          bunx clawhub publish skills/lovart-skill \
+            --slug lovart-admin/lovart-skill \
+            --version "${{ steps.version.outputs.version }}" \
+            --tags latest \
+            ${{ steps.dry.outputs.flag }}
