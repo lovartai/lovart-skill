@@ -90,6 +90,18 @@ If `chat` throws an error, first check the HTTP status code (available as `Agent
 
 Note: errors from the skill carry both an HTTP status and a structured `code` in the response body. Prefer matching on status + code; the raw message is provided in `details` for diagnostics.
 
+**Detect silent generation failures (`done` with no artifact):**
+
+Some prompts end with `final_status: "done"` but produce no `artifacts` / empty `downloaded`. This usually means the upstream image model refused the prompt (content moderation), timed out, or the LLM chose to reply with text instead of calling a tool. The skill flags this automatically — when `chat()` returns, check:
+
+- `result["generation_succeeded"]` — boolean. `False` means no artifact was produced.
+- `result["warning"]` — explanation string (present only when `generation_succeeded` is `False`).
+- `result["agent_message"]` — the agent's plain-text reply that hints at why (present when available).
+
+Typical triggers:
+- GPT Image 2 with very long/complex prompts involving weapons, specific bodies, or policy-sensitive wording — retry with a different model (`--include-tools generate_image_midjourney` or `generate_image_nano_banana_pro`) or simplify the prompt.
+- Prompt that describes a task the agent can't fulfill — show `agent_message` to the user.
+
 # ⚠️ RULE #3: ALWAYS DELIVER RESULTS + PROJECT LINK
 
 After EVERY generation, you MUST:

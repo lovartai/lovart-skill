@@ -403,6 +403,34 @@ class AgentSkill:
         result["final_status"] = status
         result["project_id"] = project_id
 
+        # Detect "done but no artifact" — usually means the agent answered
+        # with text (e.g. the upstream image model refused the prompt via
+        # content moderation, timed out, or the LLM decided not to call any
+        # tool). Surface the assistant text under a clear field so callers
+        # don't silently mistake it for a successful generation.
+        if status == "done":
+            has_artifact = any(
+                (it.get("artifacts") or [])
+                for it in (result.get("items") or [])
+            )
+            if not has_artifact:
+                assistant_texts = [
+                    (it.get("text") or "").strip()
+                    for it in (result.get("items") or [])
+                    if it.get("text")
+                ]
+                result["generation_succeeded"] = False
+                result["warning"] = (
+                    "Thread ended without producing any artifact. The agent "
+                    "responded with text only — the upstream model may have "
+                    "refused the prompt (content moderation), timed out, or "
+                    "the LLM chose not to call a generation tool."
+                )
+                if assistant_texts:
+                    result["agent_message"] = "\n\n".join(assistant_texts)
+            else:
+                result["generation_succeeded"] = True
+
         # Auto-name project if it's still "Untitled", empty, or looks like a truncated ID
         if project_id:
             try:
