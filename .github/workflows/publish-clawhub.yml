@@ -48,6 +48,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  id-token: write   # OIDC token — reusable workflow needs it to auth with clawhub.ai
 
 jobs:
   publish:
