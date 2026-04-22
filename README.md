@@ -147,7 +147,6 @@ Available models:
 |---|---|---|---|
 | IMAGE | `generate_image_flux_2_max` | Flux.2 Max |  |
 | IMAGE | `generate_image_flux_2_pro` | Flux.2 Pro |  |
-| IMAGE | `generate_image_gpt_image` | GPT Image |  |
 | IMAGE | `generate_image_gpt_image_1_5` | GPT Image 1.5 |  |
 | IMAGE | `generate_image_gpt_image_2` | GPT Image 2 Auto |  |
 | IMAGE | `generate_image_gpt_image_2_high` | GPT Image 2 High |  |
@@ -161,15 +160,11 @@ Available models:
 | IMAGE | `generate_image_seedream_v4` | Seedream 4 |  |
 | IMAGE | `generate_image_seedream_v4_5` | Seedream 4.5 |  |
 | IMAGE | `generate_image_seedream_v5` | Seedream 5.0 Lite |  |
-| VIDEO | `gemini_veo2` | Gemini Veo 2 |  |
-| VIDEO | `generate_video_hailuo_v02` | Hailuo-02 |  |
 | VIDEO | `generate_video_hailuo_v2_3` | Hailuo 2.3 |  |
 | VIDEO | `generate_video_kling_omni_v1` | Kling O1 | ⭐ Premium |
-| VIDEO | `generate_video_kling_v2_5_turbo` | Kling 2.5 Turbo | ⭐ Premium |
 | VIDEO | `generate_video_kling_v2_6` | Kling 2.6 | ⭐ Premium |
 | VIDEO | `generate_video_kling_v3` | Kling 3.0 | ⭐ Premium |
 | VIDEO | `generate_video_kling_v3_omni` | Kling 3.0 Omni | ⭐ Premium |
-| VIDEO | `generate_video_ltx_v2` | LTXV 2.0 |  |
 | VIDEO | `generate_video_seedance_pro_v1_5` | Seedance 1.5 Pro |  |
 | VIDEO | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ Premium |
@@ -179,12 +174,7 @@ Available models:
 | VIDEO | `generate_video_veo3_1` | Veo 3.1 | ⭐ Premium |
 | VIDEO | `generate_video_veo3_1_fast` | Veo 3.1 Fast | ⭐ Premium |
 | VIDEO | `generate_video_vidu_q2` | Vidu Q2 |  |
-| VIDEO | `generate_video_wan_v2_5` | Wan 2.5 |  |
 | VIDEO | `generate_video_wan_v2_6` | Wan 2.6 |  |
-| VIDEO | `kling_1_6` | Kling 1.6 |  |
-| VIDEO | `minimax_video_generator` | Hailuo-01 |  |
-| VIDEO | `runway` | Runway Gen4 |  |
-| 3D | `generate_3d_rodin` | Rodin |  |
 | 3D | `generate_3d_tripo` | Tripo |  |
 
 ## 🧠 Reasoning modes
