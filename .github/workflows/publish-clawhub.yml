@@ -51,7 +51,7 @@ permissions:
 
 jobs:
   publish:
-    uses: openclaw/clawhub/.github/workflows/package-publish.yml@4af2bd5
+    uses: openclaw/clawhub/.github/workflows/package-publish.yml@4af2bd50a71465683dbf8aa269af764b9d39bdf5
     with:
       source: ""
       dry_run: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) || false }}
