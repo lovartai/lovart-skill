@@ -11,11 +11,6 @@ on:
       - "scripts/sync_models.py"
       - ".github/workflows/sync-models.yml"
   workflow_dispatch:
-    inputs:
-      catalog_url:
-        description: "Override the catalog URL (default: prod)"
-        required: false
-        default: ""
 
 permissions:
   contents: write
@@ -33,8 +28,6 @@ jobs:
 
       - name: Render READMEs + SKILL.md
         id: sync
-        env:
-          CATALOG_URL: ${{ github.event.inputs.catalog_url != '' && github.event.inputs.catalog_url || 'https://lgw.lovart.ai/v1/openapi/tools/catalog' }}
         run: |
           python3 scripts/sync_models.py
           if git diff --quiet -- README.md README_CN.md README_TW.md README_JA.md skills/lovart-skill/SKILL.md; then
