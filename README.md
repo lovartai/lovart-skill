@@ -141,7 +141,7 @@ You can control which model the Agent uses in three ways:
 2. **`--prefer-models`** (soft preference) — `'{"IMAGE":["generate_image_midjourney"]}'`
 3. **`--include-tools`** (hard constraint) — `upscale_image`
 
-Available models (auto-synced from the live API — do not edit by hand):
+Available models:
 
 | Category | Tool name | Display name | Premium |
 |---|---|---|---|

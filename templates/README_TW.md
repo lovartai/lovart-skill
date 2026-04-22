@@ -139,7 +139,7 @@ python3 agent_skill.py threads
 2. **`--prefer-models`**（軟偏好）— `'{"IMAGE":["generate_image_midjourney"]}'`
 3. **`--include-tools`**（硬約束）— `upscale_image`
 
-可用模型（自動同步，勿手動編輯）：
+可用模型：
 
 <!-- AUTOGEN:models:start -->
 

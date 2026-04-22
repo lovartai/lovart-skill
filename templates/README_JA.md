@@ -139,7 +139,7 @@ Agent が使用するモデルを制御する 3 つの方法：
 2. **`--prefer-models`**（ソフトプリファレンス）— `'{"IMAGE":["generate_image_midjourney"]}'`
 3. **`--include-tools`**（ハードコンストレイント）— `upscale_image`
 
-利用可能なモデル（自動同期、手動編集禁止）：
+利用可能なモデル：
 
 <!-- AUTOGEN:models:start -->
 
