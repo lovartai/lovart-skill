@@ -2,8 +2,8 @@ name: Render READMEs from templates + live catalog
 
 on:
   schedule:
-    # Monday 01:00 UTC (09:00 CST)
-    - cron: "0 1 * * 1"
+    # 01:00 UTC daily (09:00 CST)
+    - cron: "0 1 * * *"
   push:
     branches: [main]
     paths:
@@ -56,7 +56,7 @@ jobs:
 
             Triggered by:
             - template change (`templates/**`), or
-            - weekly schedule (Mon 01:00 UTC), or
+            - daily schedule (01:00 UTC), or
             - manual `workflow_dispatch`.
 
             Source of truth is `templates/*.md`; this PR only touches the
