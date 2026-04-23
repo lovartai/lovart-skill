@@ -59,6 +59,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
 
+      # Render SKILL.md + READMEs from the live catalog so the published
+      # skill always reflects the latest model list, even when the tag was
+      # cut before the daily sync-models workflow ran. Output files are
+      # ephemeral to this job and only feed into the clawhub publish +
+      # release artifacts below — we do not commit them back.
+      - name: Render SKILL.md + READMEs from live catalog
+        run: python3 scripts/sync_models.py
+
       - name: Resolve version
         id: version
         run: |
