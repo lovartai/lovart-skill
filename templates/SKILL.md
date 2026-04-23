@@ -60,7 +60,7 @@ Use the `chat` command (blocks until done), NOT `send`. Do NOT reply before gene
 **Handle these `final_status` values:**
 
 - `"done"` — Generation complete. Send the downloaded files to the user.
-- `"pending_confirmation"` — A high-cost tool (e.g. video) needs user approval.
+- `"pending_confirmation"` — A high-cost tool (e.g. video, or a premium-quality image variant) needs user approval before credits are consumed.
   **You MUST ask the user for explicit confirmation before proceeding. Do NOT auto-confirm.**
   1. Show the user: "This will cost approximately {estimated_cost} credits. Shall I proceed? (yes/no)"
   2. **WAIT for user response.** Only if user explicitly says yes/confirm/proceed, run:
@@ -76,19 +76,17 @@ Use the `chat` command (blocks until done), NOT `send`. Do NOT reply before gene
 
 **Handle errors:**
 
-If `chat` throws an error, first check the HTTP status code (available as `AgentSkillError.status_code`), then fall back to error-message matching:
+If `chat` throws an error (`AgentSkillError`), handle it by HTTP status and structured `code`. The `message` field already contains a user-ready explanation — surface it to the user as-is.
 
-| HTTP status / error contains | Meaning | What to tell the user |
-|---|---|---|
-| **`409`** (`code: 2011`, "Thread is busy") | Another task is still running on this thread | "A task is still running on this conversation. Wait for it to finish (`status`) before sending a new prompt, or start a new thread." |
-| **`402`** (`code: 2012`, "Task rejected") + body contains `1200000136` | Insufficient credits | "Your credits are insufficient. Please top up or switch to unlimited mode: `set-mode --unlimited`" |
-| **`402`** (`code: 2012`) + body contains `1200000200` | Concurrent task limit (cashier) | "You've hit the concurrent-task limit. Please wait for a running task to finish before starting a new one." |
-| **`402`** (`code: 2012`) + body contains `1200000146` | Free tier limit reached | "Free tier limit reached. Please subscribe or switch to unlimited mode." |
-| **`429`** (`code: 1429`, "Rate limit exceeded") | API rate limit hit | "Slowing down; rate limit hit. Retry in ~60s." |
-| `Invalid signature` / 401 | AK/SK misconfigured | "API key authentication failed. Please check your LOVART_ACCESS_KEY and LOVART_SECRET_KEY." |
-| `Project.*does not exist` | Invalid project ID | "Project not found. Please check the project ID or create a new one." |
+| HTTP status | `code` | What it means | What to tell the user |
+|---|---|---|---|
+| **`402`** | `2012` | Quota / billing / risk-control rejection | Show `AgentSkillError.message` directly — the server already returns a specific message (insufficient credits, free-tier reached, concurrent limit, risk control, phone verification, team plan required, etc.) and a suggested next step. |
+| **`409`** | `2011` | Another task is still running on this thread | "A task is still running on this conversation. Wait for it to finish (`status`) before sending a new prompt, or start a new thread." |
+| **`429`** | `1429` | API rate limit hit | "Slowing down; rate limit hit. Retry in ~60s." |
+| **`401`** | — | AK/SK misconfigured | "API key authentication failed. Please check your LOVART_ACCESS_KEY and LOVART_SECRET_KEY." |
+| — | — | `Project.*does not exist` in message | "Project not found. Please check the project ID or create a new one." |
 
-Note: errors from the skill carry both an HTTP status and a structured `code` in the response body. Prefer matching on status + code; the raw message is provided in `details` for diagnostics.
+Rule of thumb: prefer `AgentSkillError.message` for user-facing copy. Do not try to parse internal codes out of the response — the server already maps them to human-readable messages before returning.
 
 **Detect silent generation failures (`done` with no artifact):**
 
