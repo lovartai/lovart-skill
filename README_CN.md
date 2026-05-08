@@ -151,6 +151,8 @@ python3 agent_skill.py threads
 | 图片 | `generate_image_nano_banana_2` | Nano Banana 2 |  |
 | 图片 | `generate_image_gpt_image_1_5` | GPT Image 1.5 |  |
 | 图片 | `generate_image_seedream_v5` | Seedream 5.0 Lite |  |
+| 图片 | `generate_image_luma_uni_1` | Luma uni-1 |  |
+| 图片 | `generate_image_luma_uni_1_max` | Luma uni-1-max |  |
 | 图片 | `generate_image_flux_2_max` | Flux.2 Max |  |
 | 图片 | `generate_image_flux_2_pro` | Flux.2 Pro |  |
 | 图片 | `generate_image_seedream_v4_5` | Seedream 4.5 |  |

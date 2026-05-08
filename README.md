@@ -151,6 +151,8 @@ Available models:
 | IMAGE | `generate_image_nano_banana_2` | Nano Banana 2 |  |
 | IMAGE | `generate_image_gpt_image_1_5` | GPT Image 1.5 |  |
 | IMAGE | `generate_image_seedream_v5` | Seedream 5.0 Lite |  |
+| IMAGE | `generate_image_luma_uni_1` | Luma uni-1 |  |
+| IMAGE | `generate_image_luma_uni_1_max` | Luma uni-1-max |  |
 | IMAGE | `generate_image_flux_2_max` | Flux.2 Max |  |
 | IMAGE | `generate_image_flux_2_pro` | Flux.2 Pro |  |
 | IMAGE | `generate_image_seedream_v4_5` | Seedream 4.5 |  |
