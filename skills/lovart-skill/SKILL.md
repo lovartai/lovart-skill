@@ -400,7 +400,6 @@ Available models for `--prefer-models`:
 | `generate_image_seedream_v4_5` | Seedream 4.5 |
 | `generate_image_nano_banana` | Nano Banana |
 | `generate_image_seedream_v4` | Seedream 4 |
-| `generate_image_imagen_v4` | Gemini Imagen 4 |
 | `generate_image_midjourney` | Midjourney |
 
 **VIDEO:**

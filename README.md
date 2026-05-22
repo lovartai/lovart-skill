@@ -158,7 +158,6 @@ Available models:
 | IMAGE | `generate_image_seedream_v4_5` | Seedream 4.5 |  |
 | IMAGE | `generate_image_nano_banana` | Nano Banana |  |
 | IMAGE | `generate_image_seedream_v4` | Seedream 4 |  |
-| IMAGE | `generate_image_imagen_v4` | Gemini Imagen 4 |  |
 | IMAGE | `generate_image_midjourney` | Midjourney |  |
 | VIDEO | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ Premium |

@@ -158,7 +158,6 @@ Agent が使用するモデルを制御する 3 つの方法：
 | 画像 | `generate_image_seedream_v4_5` | Seedream 4.5 |  |
 | 画像 | `generate_image_nano_banana` | Nano Banana |  |
 | 画像 | `generate_image_seedream_v4` | Seedream 4 |  |
-| 画像 | `generate_image_imagen_v4` | Gemini Imagen 4 |  |
 | 画像 | `generate_image_midjourney` | Midjourney |  |
 | 動画 | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ |
 | 動画 | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ |
