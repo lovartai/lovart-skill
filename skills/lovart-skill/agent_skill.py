@@ -68,19 +68,25 @@ class AgentSkill:
             "X-Signed-Path": path,
         }
 
-    def _request(self, method: str, path: str, body=None, params=None, retries: int = 3) -> dict:
+    def _request(self, method: str, path: str, body=None, params=None, retries: int = None) -> dict:
+        if retries is None:
+            retries = 3 if method == "GET" else 1
+
         url = f"{self.base_url}{path}"
         if params:
             url += "?" + urllib.parse.urlencode(params)
 
         data = json.dumps(body).encode() if body is not None else None
         last_err = None
+        idempotency_key = uuid.uuid4().hex if method == "POST" else None
 
         for attempt in range(retries):
             # Re-sign on each attempt (timestamp freshness)
             headers = self._sign(method, path)
             headers["Content-Type"] = "application/json"
             headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) LovartAgentSkill/1.0"
+            if idempotency_key:
+                headers["Idempotency-Key"] = idempotency_key
             req = urllib.request.Request(url, data=data, headers=headers, method=method)
 
             try:
