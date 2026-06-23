@@ -162,6 +162,7 @@ python3 agent_skill.py threads
 | 圖片 | `generate_image_ideogram_v4` | Ideogram 4 |  |
 | 影片 | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ |
 | 影片 | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ |
+| 影片 | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini | ⭐ |
 | 影片 | `generate_video_kling_v3` | Kling 3.0 | ⭐ |
 | 影片 | `generate_video_kling_v3_omni` | Kling 3.0 Omni | ⭐ |
 | 影片 | `generate_video_seedance_pro_v1_5` | Seedance 1.5 Pro |  |
