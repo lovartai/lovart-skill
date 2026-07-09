@@ -124,6 +124,6 @@ jobs:
             gh release create "$TAG" \
               --repo "$GITHUB_REPOSITORY" \
               --title "$TAG" \
-              --notes "Installable skill bundle for clawhub.com / \`npx skills add\`. Attached archives contain only the \`lovart-skill/\` directory (SKILL.md + agent_skill.py)." \
+              --notes "Installable skill bundle for clawhub.com / \`npx skills add\`. Attached archives contain only the \`lovart-skill/\` directory (SKILL.md + scripts/agent_skill.py)." \
               "${ASSETS[@]}"
           fi

@@ -42,17 +42,62 @@ export LOVART_SECRET_KEY="sk_xxx"
 
 > 🎉 **就這麼簡單！** Skill 檔案會被新增到你的專案中，AI Agent 將自動偵測並呼叫，無需手動執行任何腳本。
 
+## 🤖 安裝 — Hermes Agent
+
+[Hermes Agent](https://github.com/l3ad3r1/Hermes-skills) 透過
+`~/.hermes/skills/<category>/<skill-name>/SKILL.md` 探索技能。本倉庫的
+`SKILL.md` 採用雙格式 frontmatter,無需任何修改即可同時在兩個生態中執行。
+
+```bash
+# 1. 克隆本倉庫
+git clone https://github.com/lovartai/lovart-skill.git
+cd lovart-skill
+
+# 2. 複製到 Hermes 技能目錄
+cp -r skills/lovart-skill ~/.hermes/skills/design/lovart-api
+
+# 3. 設定憑證(建議寫入 shell rc)
+export LOVART_ACCESS_KEY="ak_xxx"
+export LOVART_SECRET_KEY="sk_xxx"
+```
+
+安裝完成後,Agent 會在任意視覺/音訊創作請求時自動觸發。在 Hermes 對話框中:
+
+```
+/lovart-api 幫我畫一隻賽博龐克貓
+```
+
+> 💡 技能的 `metadata.hermes.tags`(image-generation、video-generation、
+> audio-generation、3d、design 等)使其也能透過 Hermes 的標籤搜尋發現。
+
+### 雙格式相容性
+
+`SKILL.md` 的 frontmatter **同時**宣告兩個生態:
+
+```yaml
+metadata:
+  hermes:    { tags: [...], related_skills: [] }
+  openclaw:  { emoji: "🎨", requires: {...}, primaryEnv: ... }
+prerequisites:
+  commands: [python3]
+  env: [LOVART_ACCESS_KEY, LOVART_SECRET_KEY]
+  python: []
+```
+
+OpenClaw 安裝讀取 `metadata.openclaw` 而忽略其餘欄位;Hermes 讀取
+`metadata.hermes` 與 `prerequisites`。無行為分支、無重複維護。
+
 ## 🚀 快速開始
 
 ```bash
 # 生成圖片
-python3 agent_skill.py chat --prompt "賽博龐克風格的貓，霓虹城市背景" --json --download
+python3 scripts/agent_skill.py chat --prompt "賽博龐克風格的貓，霓虹城市背景" --json --download
 
 # 生成影片
-python3 agent_skill.py chat --prompt "海浪拍打岩石，電影感" --json --download
+python3 scripts/agent_skill.py chat --prompt "海浪拍打岩石，電影感" --json --download
 
 # 生成 BGM
-python3 agent_skill.py chat --prompt "lofi hip-hop, chill, study vibes" --json --download
+python3 scripts/agent_skill.py chat --prompt "lofi hip-hop, chill, study vibes" --json --download
 ```
 
 ## 🛠️ 指令一覽
@@ -100,35 +145,35 @@ python3 agent_skill.py chat --prompt "lofi hip-hop, chill, study vibes" --json -
 
 ```bash
 # 使用既有專案
-python3 agent_skill.py chat --project-id PROJECT_ID --prompt "畫一隻貓" --json --download
+python3 scripts/agent_skill.py chat --project-id PROJECT_ID --prompt "畫一隻貓" --json --download
 
 # 繼續對話（重用 thread 保留上下文）
-python3 agent_skill.py chat --thread-id THREAD_ID --prompt "把背景換成藍色" --json --download
+python3 scripts/agent_skill.py chat --thread-id THREAD_ID --prompt "把背景換成藍色" --json --download
 
 # 串流回傳（完成一張就交付一張，NDJSON 輸出）
-python3 agent_skill.py watch --prompt "生成 4 張賽博龐克貓的變體"
+python3 scripts/agent_skill.py watch --prompt "生成 4 張賽博龐克貓的變體"
 
 # 帶參考圖編輯
-python3 agent_skill.py upload --file photo.jpg
-python3 agent_skill.py chat --prompt "改成水彩畫風格" --attachments "CDN_URL" --json --download
+python3 scripts/agent_skill.py upload --file photo.jpg
+python3 scripts/agent_skill.py chat --prompt "改成水彩畫風格" --attachments "CDN_URL" --json --download
 
 # 指定模型
-python3 agent_skill.py chat --prompt "畫一隻貓" \
+python3 scripts/agent_skill.py chat --prompt "畫一隻貓" \
   --prefer-models '{"IMAGE":["generate_image_midjourney"]}' --json --download
 
 # 強制使用特定工具（如超解析度而非重新生成）
-python3 agent_skill.py chat --prompt "放大這張圖" \
+python3 scripts/agent_skill.py chat --prompt "放大這張圖" \
   --include-tools upscale_image --attachments "IMAGE_URL" --json --download
 
 # Thinking 模式 — 面向複雜任務的深度結構化推理
-python3 agent_skill.py chat --prompt "為咖啡品牌設計一套完整 VI" \
+python3 scripts/agent_skill.py chat --prompt "為咖啡品牌設計一套完整 VI" \
   --mode thinking --json --download
 
 # 專案管理
-python3 agent_skill.py projects
-python3 agent_skill.py project-add --project-id NEW_ID --name "我的品牌套件"
-python3 agent_skill.py project-switch --project-id NEW_ID
-python3 agent_skill.py threads
+python3 scripts/agent_skill.py projects
+python3 scripts/agent_skill.py project-add --project-id NEW_ID --name "我的品牌套件"
+python3 scripts/agent_skill.py project-switch --project-id NEW_ID
+python3 scripts/agent_skill.py threads
 ```
 
 ## 🎯 模型選擇
@@ -153,10 +198,10 @@ python3 agent_skill.py threads
 
 ```bash
 # 快速單輪（預設）
-python3 agent_skill.py chat --prompt "畫一隻貓"
+python3 scripts/agent_skill.py chat --prompt "畫一隻貓"
 
 # 深度推理
-python3 agent_skill.py chat --prompt "設計一整套品牌識別" --mode thinking
+python3 scripts/agent_skill.py chat --prompt "設計一整套品牌識別" --mode thinking
 ```
 
 **模式在 thread 首條訊息時鎖定**。要切換模式請開新 thread（不傳 `--thread-id`）。對齊 Lovart Web UI 的模式切換。
@@ -167,13 +212,13 @@ python3 agent_skill.py chat --prompt "設計一整套品牌識別" --mode thinki
 
 ```bash
 # 快速模式 — 消耗點數，無需排隊
-python3 agent_skill.py set-mode --fast
+python3 scripts/agent_skill.py set-mode --fast
 
 # 無限模式 — 免費，可能排隊
-python3 agent_skill.py set-mode --unlimited
+python3 scripts/agent_skill.py set-mode --unlimited
 
 # 查詢目前模式
-python3 agent_skill.py query-mode
+python3 scripts/agent_skill.py query-mode
 ```
 
 ## 🚦 頻率限制
@@ -233,8 +278,9 @@ lovart-skill/
 ├── README_JA.md
 └── skills/
     └── lovart-skill/
-        ├── SKILL.md          # Skill 協議檔案 (OpenClaw 規範)
-        └── agent_skill.py    # Python 客戶端 (零依賴)
+        ├── SKILL.md                 # Skill 協議檔案 (OpenClaw + Hermes 雙格式)
+        └── scripts/
+            └── agent_skill.py       # Python 客戶端 (零依賴)
 ```
 
 ## 🔒 安全與隱私
@@ -243,13 +289,13 @@ lovart-skill/
 - **外部請求**：只呼叫 Lovart API (`https://lgw.lovart.ai`) 和 Lovart CDN（用於下載你產生的檔案），不涉及第三方服務
 - **API 金鑰**：AK/SK 從環境變數 (`LOVART_ACCESS_KEY` / `LOVART_SECRET_KEY`) 讀取，每次請求以 HMAC-SHA256 簽章，金鑰不會落盤也不會印到日誌
 - **TLS**：**預設啟用 SSL 憑證驗證**。僅當你在會攔截 TLS 的公司代理/VPN 環境下，可設定 `LOVART_INSECURE_SSL=1` 關閉
-- **原始碼**：`skills/lovart-skill/agent_skill.py` 約 900 行純 Python 標準函式庫程式碼，建議安裝前先通讀
+- **原始碼**：`skills/lovart-skill/scripts/agent_skill.py` 約 900 行純 Python 標準函式庫程式碼，建議安裝前先通讀
 
 ## 🏗️ 架構
 
 ```
 使用者 -> OpenClaw / Claude Code / 其他 AI 助手
-            -> agent_skill.py (本 skill)
+            -> scripts/agent_skill.py (本 skill)
               -> Lovart OpenAPI (AK/SK HMAC-SHA256 簽章認證)
                 -> Lovart AI Agent (模型選擇、流程編排)
                   -> 生成的圖片 / 影片 / 音訊

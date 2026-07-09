@@ -42,17 +42,65 @@ Lovart プラットフォームで AK/SK を取得してください（アバタ
 
 > 🎉 **これだけです！** Skill ファイルがプロジェクトに追加され、AI Agent が自動検出して呼び出します。スクリプトを手動で実行する必要はありません。
 
+## 🤖 インストール — Hermes Agent
+
+[Hermes Agent](https://github.com/l3ad3r1/Hermes-skills) は
+`~/.hermes/skills/<category>/<skill-name>/SKILL.md` でスキルを検出します。
+本リポジトリの `SKILL.md` はデュアルフォーマット frontmatter を採用して
+いるため、両エコシステムでそのまま動作します。
+
+```bash
+# 1. このリポジトリをクローン
+git clone https://github.com/lovartai/lovart-skill.git
+cd lovart-skill
+
+# 2. Hermes スキルツリーへコピー
+cp -r skills/lovart-skill ~/.hermes/skills/design/lovart-api
+
+# 3. 資格情報を設定(shell rc に追記推奨)
+export LOVART_ACCESS_KEY="ak_xxx"
+export LOVART_SECRET_KEY="sk_xxx"
+```
+
+インストール後、任意の視覚/音声生成リクエストで Agent が自動起動します。
+Hermes チャットから:
+
+```
+/lovart-api サイバーパンクな猫を描いて
+```
+
+> 💡 スキルの `metadata.hermes.tags`(image-generation、video-generation、
+> audio-generation、3d、design 等)により、Hermes のタグ検索でも発見可能です。
+
+### デュアルフォーマット互換性
+
+`SKILL.md` の frontmatter は**両方のエコシステムを同時に**宣言します:
+
+```yaml
+metadata:
+  hermes:    { tags: [...], related_skills: [] }
+  openclaw:  { emoji: "🎨", requires: {...}, primaryEnv: ... }
+prerequisites:
+  commands: [python3]
+  env: [LOVART_ACCESS_KEY, LOVART_SECRET_KEY]
+  python: []
+```
+
+OpenClaw インストールは `metadata.openclaw` のみ読み取り、その他を無視します。
+Hermes は `metadata.hermes` と `prerequisites` を読み取ります。挙動分岐なし、
+二重保守なし。
+
 ## 🚀 クイックスタート
 
 ```bash
 # 画像生成
-python3 agent_skill.py chat --prompt "サイバーパンクな猫、ネオンシティの背景" --json --download
+python3 scripts/agent_skill.py chat --prompt "サイバーパンクな猫、ネオンシティの背景" --json --download
 
 # 動画生成
-python3 agent_skill.py chat --prompt "岩に打ち寄せる波、シネマティック" --json --download
+python3 scripts/agent_skill.py chat --prompt "岩に打ち寄せる波、シネマティック" --json --download
 
 # BGM 生成
-python3 agent_skill.py chat --prompt "lofi hip-hop, chill, study vibes" --json --download
+python3 scripts/agent_skill.py chat --prompt "lofi hip-hop, chill, study vibes" --json --download
 ```
 
 ## 🛠️ コマンド一覧
@@ -100,35 +148,35 @@ python3 agent_skill.py chat --prompt "lofi hip-hop, chill, study vibes" --json -
 
 ```bash
 # 既存プロジェクトを使用
-python3 agent_skill.py chat --project-id PROJECT_ID --prompt "猫を描いて" --json --download
+python3 scripts/agent_skill.py chat --project-id PROJECT_ID --prompt "猫を描いて" --json --download
 
 # 会話を継続（スレッド再利用でコンテキストを保持）
-python3 agent_skill.py chat --thread-id THREAD_ID --prompt "背景を青にして" --json --download
+python3 scripts/agent_skill.py chat --thread-id THREAD_ID --prompt "背景を青にして" --json --download
 
 # ストリーミング返却（完成次第 1 枚ずつ配信、NDJSON 出力）
-python3 agent_skill.py watch --prompt "サイバーパンクな猫のバリエーションを 4 枚"
+python3 scripts/agent_skill.py watch --prompt "サイバーパンクな猫のバリエーションを 4 枚"
 
 # 参考画像付きで編集
-python3 agent_skill.py upload --file photo.jpg
-python3 agent_skill.py chat --prompt "水彩画風に変えて" --attachments "CDN_URL" --json --download
+python3 scripts/agent_skill.py upload --file photo.jpg
+python3 scripts/agent_skill.py chat --prompt "水彩画風に変えて" --attachments "CDN_URL" --json --download
 
 # モデルを指定
-python3 agent_skill.py chat --prompt "猫を描いて" \
+python3 scripts/agent_skill.py chat --prompt "猫を描いて" \
   --prefer-models '{"IMAGE":["generate_image_midjourney"]}' --json --download
 
 # 特定ツールを強制使用（再生成ではなく超解像）
-python3 agent_skill.py chat --prompt "この画像を拡大して" \
+python3 scripts/agent_skill.py chat --prompt "この画像を拡大して" \
   --include-tools upscale_image --attachments "IMAGE_URL" --json --download
 
 # Thinking モード — 複雑なタスク向けの深い構造化推論
-python3 agent_skill.py chat --prompt "コーヒーブランドの VI 一式をデザインして" \
+python3 scripts/agent_skill.py chat --prompt "コーヒーブランドの VI 一式をデザインして" \
   --mode thinking --json --download
 
 # プロジェクト管理
-python3 agent_skill.py projects
-python3 agent_skill.py project-add --project-id NEW_ID --name "ブランドキット"
-python3 agent_skill.py project-switch --project-id NEW_ID
-python3 agent_skill.py threads
+python3 scripts/agent_skill.py projects
+python3 scripts/agent_skill.py project-add --project-id NEW_ID --name "ブランドキット"
+python3 scripts/agent_skill.py project-switch --project-id NEW_ID
+python3 scripts/agent_skill.py threads
 ```
 
 ## 🎯 モデル選択
@@ -153,10 +201,10 @@ Agent が使用するモデルを制御する 3 つの方法：
 
 ```bash
 # 高速ワンショット（デフォルト）
-python3 agent_skill.py chat --prompt "猫を描いて"
+python3 scripts/agent_skill.py chat --prompt "猫を描いて"
 
 # 深い推論
-python3 agent_skill.py chat --prompt "ブランドアイデンティティ一式をデザインして" --mode thinking
+python3 scripts/agent_skill.py chat --prompt "ブランドアイデンティティ一式をデザインして" --mode thinking
 ```
 
 **モードは thread の初回メッセージ時に固定されます**。モードを切り替えるには新しい thread を開始してください（`--thread-id` を渡さない）。Lovart Web UI のモードトグルと同じ挙動です。
@@ -167,13 +215,13 @@ python3 agent_skill.py chat --prompt "ブランドアイデンティティ一式
 
 ```bash
 # 高速モード — クレジット消費、キューなし
-python3 agent_skill.py set-mode --fast
+python3 scripts/agent_skill.py set-mode --fast
 
 # 無制限モード — 無料、キューあり
-python3 agent_skill.py set-mode --unlimited
+python3 scripts/agent_skill.py set-mode --unlimited
 
 # 現在のモードを確認
-python3 agent_skill.py query-mode
+python3 scripts/agent_skill.py query-mode
 ```
 
 ## 🚦 レート制限
@@ -233,8 +281,9 @@ lovart-skill/
 ├── README_JA.md
 └── skills/
     └── lovart-skill/
-        ├── SKILL.md          # Skill 仕様ファイル (OpenClaw 規格)
-        └── agent_skill.py    # Python クライアント (依存ゼロ)
+        ├── SKILL.md                 # Skill 仕様ファイル (OpenClaw + Hermes デュアルフォーマット)
+        └── scripts/
+            └── agent_skill.py       # Python クライアント (依存ゼロ)
 ```
 
 ## 🔒 セキュリティとプライバシー
@@ -243,13 +292,13 @@ lovart-skill/
 - **外部通信**：Lovart API (`https://lgw.lovart.ai`) と Lovart CDN（生成物のダウンロード用）のみを呼び出します。第三者サービスは使用しません
 - **API キー**：AK/SK は環境変数 (`LOVART_ACCESS_KEY` / `LOVART_SECRET_KEY`) から読み込まれ、リクエストごとに HMAC-SHA256 で署名されます。キーはディスクに保存されず、ログにも出力されません
 - **TLS**：**SSL 証明書検証はデフォルトで有効**。TLS インターセプトを行う企業プロキシ/VPN 環境下でのみ `LOVART_INSECURE_SSL=1` で無効化できます
-- **ソースコード**：`skills/lovart-skill/agent_skill.py` は約 900 行の純粋な Python 標準ライブラリコード。インストール前に一読することをお勧めします
+- **ソースコード**：`skills/lovart-skill/scripts/agent_skill.py` は約 900 行の純粋な Python 標準ライブラリコード。インストール前に一読することをお勧めします
 
 ## 🏗️ アーキテクチャ
 
 ```
 ユーザー -> OpenClaw / Claude Code / その他 AI アシスタント
-              -> agent_skill.py (本 skill)
+              -> scripts/agent_skill.py (本 skill)
                 -> Lovart OpenAPI (AK/SK HMAC-SHA256 署名認証)
                   -> Lovart AI Agent (モデル選択、ワークフロー編成)
                     -> 生成された画像 / 動画 / 音声
