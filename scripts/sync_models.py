@@ -13,6 +13,11 @@ table per template, and writes the combined output to the configured path
 (repo root or `skills/lovart-skill/`). The generated files have the AUTOGEN
 markers stripped.
 
+The SKILL.md frontmatter carries a `version:` field. It is left as-is on a
+plain run; set `SKILL_VERSION` (the publish workflow passes the git tag) to
+rewrite it so the published bundle reports the release version rather than the
+static placeholder in the template.
+
 Local run (defaults to the prod gateway; override with CATALOG_URL env):
     python3 scripts/sync_models.py
 """
@@ -22,6 +27,7 @@ from __future__ import annotations
 import json
 import os
 import pathlib
+import re
 import sys
 import urllib.request
 
@@ -157,6 +163,20 @@ def render_table(tools: list[dict], locale: dict) -> str:
     return "\n".join(lines)
 
 
+def apply_version(text: str, version: str) -> str:
+    """Rewrite the top-level `version:` line inside a leading YAML frontmatter
+    block. No-op for files without frontmatter (e.g. the READMEs), so it is safe
+    to call on every rendered output."""
+    if not text.startswith("---\n"):
+        return text
+    end = text.find("\n---", 4)
+    if end == -1:
+        return text
+    fm, rest = text[:end], text[end:]
+    new_fm, n = re.subn(r"(?m)^version:.*$", f"version: {version}", fm)
+    return new_fm + rest if n else text
+
+
 def render_from_template(template: str, table: str) -> str:
     """Replace the AUTOGEN block with the rendered table AND strip the markers."""
     try:
@@ -173,9 +193,11 @@ def render_from_template(template: str, table: str) -> str:
 
 def main() -> int:
     root = pathlib.Path(__file__).resolve().parent.parent
+    version = os.environ.get("SKILL_VERSION", "").strip()
     tools = fetch_catalog(CATALOG_URL)
     print(
-        f"fetched {len(tools)} tools ({sum(1 for t in tools if t.get('is_premium'))} premium) from {CATALOG_URL}",
+        f"fetched {len(tools)} tools ({sum(1 for t in tools if t.get('is_premium'))} premium) from {CATALOG_URL}"
+        + (f"; injecting version {version}" if version else ""),
         file=sys.stderr,
     )
     changed = []
@@ -188,6 +210,8 @@ def main() -> int:
         template = src.read_text(encoding="utf-8")
         block = locale["renderer"](tools, locale)
         rendered = render_from_template(template, block)
+        if version:
+            rendered = apply_version(rendered, version)
         before = dst.read_text(encoding="utf-8") if dst.exists() else ""
         if rendered != before:
             dst.parent.mkdir(parents=True, exist_ok=True)
