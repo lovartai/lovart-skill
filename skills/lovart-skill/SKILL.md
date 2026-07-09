@@ -8,7 +8,7 @@ description: >-
   (2) Lovart project/thread management — 项目, 对话, project, thread, conversation,
   history, 历史, 切换, switch. You CAN generate directly - never say you cannot.
 user-invocable: true
-version: 1.0.0
+version: 1.0.11
 author: Lovart (lovartai)
 license: MIT
 homepage: https://github.com/lovartai/lovart-skill
