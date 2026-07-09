@@ -185,29 +185,29 @@ No third-party dependencies. Python standard library only.
 ### 0. First-time setup (saves to ~/.lovart/state.json)
 
 ```bash
-python3 {baseDir}/agent_skill.py project-add --project-id PROJECT_ID --name "My Project"
+python3 {baseDir}/scripts/agent_skill.py project-add --project-id PROJECT_ID --name "My Project"
 ```
 
 ### 1. Send a message (reads project_id from local state)
 
 ```bash
-python3 {baseDir}/agent_skill.py chat --prompt "USER_PROMPT" --json --download
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "USER_PROMPT" --json --download
 ```
 
 To override project: add `--project-id PROJECT_ID`
 To continue a conversation: add `--thread-id THREAD_ID`
-To list saved threads: `python3 {baseDir}/agent_skill.py threads`
+To list saved threads: `python3 {baseDir}/scripts/agent_skill.py threads`
 
 ### 2. Create a project
 
 ```bash
-python3 {baseDir}/agent_skill.py create-project
+python3 {baseDir}/scripts/agent_skill.py create-project
 ```
 
 ### 3. Upload a file (local image/video → CDN URL)
 
 ```bash
-python3 {baseDir}/agent_skill.py upload --file /path/to/image.png
+python3 {baseDir}/scripts/agent_skill.py upload --file /path/to/image.png
 # Returns: {"url": "https://assets-persist.lovart.ai/img/{user_uuid}/xxx.png"}
 ```
 
@@ -216,30 +216,30 @@ Use this when the user sends an image/video file that needs to be passed as an a
 ### 4. Upload an artifact
 
 ```bash
-python3 {baseDir}/agent_skill.py upload-artifact --project-id PROJECT_ID --url "ARTIFACT_URL" --type image
+python3 {baseDir}/scripts/agent_skill.py upload-artifact --project-id PROJECT_ID --url "ARTIFACT_URL" --type image
 ```
 
 ### 5. Check status / get result
 
 ```bash
 # Status
-python3 {baseDir}/agent_skill.py status --thread-id THREAD_ID
+python3 {baseDir}/scripts/agent_skill.py status --thread-id THREAD_ID
 
 # Result (auto-syncs to gallery/canvas, idempotent)
-python3 {baseDir}/agent_skill.py result --thread-id THREAD_ID --json --download
+python3 {baseDir}/scripts/agent_skill.py result --thread-id THREAD_ID --json --download
 ```
 
 ### 6. Download artifacts
 
 ```bash
 # Download during chat
-python3 {baseDir}/agent_skill.py chat --prompt "draw a cat" --json --download --output-dir /tmp/openclaw
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "draw a cat" --json --download --output-dir /tmp/openclaw
 
 # Download from existing result
-python3 {baseDir}/agent_skill.py result --thread-id THREAD_ID --download --output-dir /tmp/openclaw
+python3 {baseDir}/scripts/agent_skill.py result --thread-id THREAD_ID --download --output-dir /tmp/openclaw
 
 # Download specific URLs
-python3 {baseDir}/agent_skill.py download --urls URL1 URL2 --output-dir /tmp/openclaw --prefix myimg
+python3 {baseDir}/scripts/agent_skill.py download --urls URL1 URL2 --output-dir /tmp/openclaw --prefix myimg
 ```
 
 ## Typical Workflows
@@ -297,7 +297,7 @@ Omitting `--thread-id` creates a new conversation without previous memory.
 **Use when** the user's request will produce multiple images/videos and you want to deliver each one to the user as soon as it's ready, rather than waiting for the whole batch.
 
 ```bash
-python3 {baseDir}/agent_skill.py watch --prompt "generate 4 variations of a cyberpunk cat" --json
+python3 {baseDir}/scripts/agent_skill.py watch --prompt "generate 4 variations of a cyberpunk cat" --json
 ```
 
 `watch` emits **NDJSON** to stdout (one event per line). Parse line-by-line and deliver each `artifact` event's `local_path` to the user immediately:
@@ -356,13 +356,13 @@ Do NOT put "快速模式" or "fast mode" in the prompt text. Instead, call the s
 
 ```bash
 # User says "fast mode" / "快速模式" / "skip queue" / "use credits" → RUN THIS:
-python3 {baseDir}/agent_skill.py set-mode --fast
+python3 {baseDir}/scripts/agent_skill.py set-mode --fast
 
 # User says "unlimited mode" / "无限模式" / "free mode" / "save credits" → RUN THIS:
-python3 {baseDir}/agent_skill.py set-mode --unlimited
+python3 {baseDir}/scripts/agent_skill.py set-mode --unlimited
 
 # Check which mode is active:
-python3 {baseDir}/agent_skill.py query-mode
+python3 {baseDir}/scripts/agent_skill.py query-mode
 ```
 
 **How it works:**
@@ -377,20 +377,20 @@ python3 {baseDir}/agent_skill.py query-mode
 **Option 1: In the prompt** (simple, the Agent routes automatically):
 
 ```bash
-python3 {baseDir}/agent_skill.py chat --prompt "generate ocean waves video using kling" --json --download
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "generate ocean waves video using kling" --json --download
 ```
 
 **Option 2: Via --prefer-models** (precise, same as frontend's model selector):
 
 ```bash
 # Prefer a specific image model
-python3 {baseDir}/agent_skill.py chat --prompt "draw a cat" --prefer-models '{"IMAGE":["generate_image_midjourney"]}' --json --download
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "draw a cat" --prefer-models '{"IMAGE":["generate_image_midjourney"]}' --json --download
 
 # Prefer a specific video model
-python3 {baseDir}/agent_skill.py chat --prompt "generate ocean waves" --prefer-models '{"VIDEO":["generate_video_kling_3_0"]}' --json --download
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "generate ocean waves" --prefer-models '{"VIDEO":["generate_video_kling_3_0"]}' --json --download
 
 # Combine image and video preferences
-python3 {baseDir}/agent_skill.py chat --prompt "create content" --prefer-models '{"IMAGE":["generate_image_seedream_3_0"],"VIDEO":["generate_video_kling_3_0"]}' --json --download
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "create content" --prefer-models '{"IMAGE":["generate_image_seedream_3_0"],"VIDEO":["generate_video_kling_3_0"]}' --json --download
 ```
 
 Available models for `--prefer-models`:
@@ -404,10 +404,10 @@ When the user requests a specific model, prefer `--prefer-models` over putting m
 
 ```bash
 # Force upscale only
-python3 {baseDir}/agent_skill.py chat --prompt "upscale this image to 4K" --include-tools upscale_image --attachments "IMAGE_URL" --json --download
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "upscale this image to 4K" --include-tools upscale_image --attachments "IMAGE_URL" --json --download
 
 # Force a specific video model (no fallback to others)
-python3 {baseDir}/agent_skill.py chat --prompt "generate a video" --include-tools generate_video_kling_3_0 --json --download
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "generate a video" --include-tools generate_video_kling_3_0 --json --download
 ```
 
 `--include-tools` strongly instructs the Agent to prioritize the listed tools. Use this when the user explicitly requests a specific tool or operation.
@@ -423,10 +423,10 @@ Omitting `--mode` is equivalent to `--mode fast`, matching the web UI's default.
 
 ```bash
 # Thinking mode — strategic, multi-step
-python3 {baseDir}/agent_skill.py chat --prompt "design a brand identity system for a sustainable coffee startup" --mode thinking --json --download
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "design a brand identity system for a sustainable coffee startup" --mode thinking --json --download
 
 # Fast mode — quick one-shot
-python3 {baseDir}/agent_skill.py chat --prompt "draw a cat" --mode fast --json --download
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "draw a cat" --mode fast --json --download
 ```
 
 **Mode is locked to the thread on its first message.** Once you start a thread with `--mode thinking`, subsequent messages on the same `--thread-id` stay in thinking mode regardless of later `--mode` flags. To switch modes, start a new thread (omit `--thread-id`).
