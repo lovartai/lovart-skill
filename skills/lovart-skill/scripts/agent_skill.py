@@ -220,7 +220,7 @@ class AgentSkill:
     # ── Download ─────────────────────────────────────────────────────
 
     @staticmethod
-    def download_artifacts(result: dict, output_dir: str = "/tmp/openclaw", prefix: str = "lovart") -> list:
+    def download_artifacts(result: dict, output_dir: str = "/tmp/lovart", prefix: str = "lovart") -> list:
         """Download all artifacts from a result dict to local files.
         Idempotent: file names are derived from URL hash, and existing files are skipped.
         Returns list of {"type", "url", "local_path", "new": bool}."""
@@ -619,7 +619,7 @@ def main():
     p.add_argument("--attachments", nargs="*", default=None)
     p.add_argument("--json", action="store_true")
     p.add_argument("--download", action="store_true", help="Download artifacts to local files")
-    p.add_argument("--output-dir", default="/tmp/openclaw", help="Download output directory")
+    p.add_argument("--output-dir", default="/tmp/lovart", help="Download output directory")
     p.add_argument("--prefer-models", default=None,
                    help='JSON: model preferences by category, e.g. \'{"IMAGE":["generate_image_midjourney"]}\'')
     p.add_argument("--include-tools", nargs="*", default=None,
@@ -644,7 +644,7 @@ def main():
     p.add_argument("--project-id", default=None)
     p.add_argument("--thread-id", default=None, help="Attach to an existing running thread")
     p.add_argument("--attachments", nargs="*", default=None)
-    p.add_argument("--output-dir", default="/tmp/openclaw")
+    p.add_argument("--output-dir", default="/tmp/lovart")
     p.add_argument("--interval", type=int, default=3, help="Poll interval in seconds")
     p.add_argument("--mode", choices=["thinking", "fast"], default=None,
                    help="Reasoning mode: 'thinking' or 'fast'. Locked per thread.")
@@ -667,7 +667,7 @@ def main():
     p.add_argument("--thread-id", required=True, help="Thread with pending high-cost operation")
     p.add_argument("--json", action="store_true")
     p.add_argument("--download", action="store_true", help="Download artifacts after completion")
-    p.add_argument("--output-dir", default="/tmp/openclaw")
+    p.add_argument("--output-dir", default="/tmp/lovart")
 
     # set-mode
     p = sub.add_parser("set-mode")
@@ -686,12 +686,12 @@ def main():
     p.add_argument("--thread-id", required=True)
     p.add_argument("--json", action="store_true")
     p.add_argument("--download", action="store_true", help="Download artifacts to local files")
-    p.add_argument("--output-dir", default="/tmp/openclaw")
+    p.add_argument("--output-dir", default="/tmp/lovart")
 
     # download (standalone: download from URLs)
     p = sub.add_parser("download")
     p.add_argument("--urls", nargs="+", required=True, help="Artifact URLs to download")
-    p.add_argument("--output-dir", default="/tmp/openclaw")
+    p.add_argument("--output-dir", default="/tmp/lovart")
     p.add_argument("--prefix", default="lovart")
 
     # config (local state management)

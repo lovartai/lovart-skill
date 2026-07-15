@@ -233,13 +233,13 @@ python3 {baseDir}/scripts/agent_skill.py result --thread-id THREAD_ID --json --d
 
 ```bash
 # Download during chat
-python3 {baseDir}/scripts/agent_skill.py chat --prompt "draw a cat" --json --download --output-dir /tmp/openclaw
+python3 {baseDir}/scripts/agent_skill.py chat --prompt "draw a cat" --json --download --output-dir /tmp/lovart
 
 # Download from existing result
-python3 {baseDir}/scripts/agent_skill.py result --thread-id THREAD_ID --download --output-dir /tmp/openclaw
+python3 {baseDir}/scripts/agent_skill.py result --thread-id THREAD_ID --download --output-dir /tmp/lovart
 
 # Download specific URLs
-python3 {baseDir}/scripts/agent_skill.py download --urls URL1 URL2 --output-dir /tmp/openclaw --prefix myimg
+python3 {baseDir}/scripts/agent_skill.py download --urls URL1 URL2 --output-dir /tmp/lovart --prefix myimg
 ```
 
 ## Typical Workflows
@@ -304,8 +304,8 @@ python3 {baseDir}/scripts/agent_skill.py watch --prompt "generate 4 variations o
 
 ```json
 {"event": "started", "thread_id": "xxx", "project_id": "yyy"}
-{"event": "artifact", "type": "image", "url": "https://...", "local_path": "/tmp/openclaw/lovart_ab12cd.png"}
-{"event": "artifact", "type": "image", "url": "https://...", "local_path": "/tmp/openclaw/lovart_ef34gh.png"}
+{"event": "artifact", "type": "image", "url": "https://...", "local_path": "/tmp/lovart/lovart_ab12cd.png"}
+{"event": "artifact", "type": "image", "url": "https://...", "local_path": "/tmp/lovart/lovart_ef34gh.png"}
 {"event": "pending_confirmation", "thread_id": "xxx", "pending_confirmation": {...}}
 {"event": "finished", "thread_id": "xxx", "final_status": "done", "artifact_count": 4}
 ```
@@ -333,7 +333,7 @@ You can also attach to an **already-running** thread: `watch --thread-id THREAD_
     ]}
   ],
   "downloaded": [
-    {"type": "image", "url": "https://...", "local_path": "/tmp/openclaw/lovart_01.png"}
+    {"type": "image", "url": "https://...", "local_path": "/tmp/lovart/lovart_01.png"}
   ]
 }
 ```
