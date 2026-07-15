@@ -12,11 +12,12 @@
 </p>
 <br/>
 
-> [Lovart](https://lovart.ai) 的 AI Agent Skills — 讓你的 AI 程式設計助手輕鬆生成圖片、影片和音訊。
+> Lovart 的 AI Agent Skills — 讓你常用的 AI 程式設計助手直接生成圖片、影片與音訊。一份 `SKILL.md`，兩條安裝路徑。
 
 ## ✨ 功能
 
-將 [OpenClaw](https://openclaw.com)（及其他 AI 程式設計助手）連接到 Lovart Agent OpenAPI：
+本 skill 將你的 AI 程式設計助手接入 Lovart Agent OpenAPI，開箱即用同時支援 [OpenClaw](https://openclaw.com) 與 [Hermes Agent](https://github.com/l3ad3r1/Hermes-skills) 兩大生態；任何能呼叫 Python 腳本的助手同樣可用。支援的能力：
+
 
 - 🖼️ **圖片生成** — 海報、Logo、插畫、Banner、Mockup 等
 - 🎬 **影片生成** — 短片、動畫、產品影片
@@ -27,11 +28,11 @@
 
 ## 📦 安裝
 
-```bash
-npx skills add lovartai/lovart-skill
-```
+依據你的 agent 生態選擇對應路徑。**OpenClaw 是官方發佈渠道**（`npx skills add`
+從 ClawHub 拉取最新 release）；**Hermes Agent 是手動複製到 skills 目錄的安裝
+方式**。兩條路徑安裝的是同一份 skill 檔案，差別只在於 agent 如何發現與呼叫。
 
-然後設定環境變數：
+無論走哪條路徑，憑證都是同一組：
 
 ```bash
 export LOVART_ACCESS_KEY="ak_xxx"
@@ -40,52 +41,32 @@ export LOVART_SECRET_KEY="sk_xxx"
 
 在 Lovart 平台取得 AK/SK（頭像選單 -> AK/SK 管理）。
 
-> 🎉 **就這麼簡單！** Skill 檔案會被新增到你的專案中，AI Agent 將自動偵測並呼叫，無需手動執行任何腳本。
-
-## 🤖 安裝 — Hermes Agent
-
-[Hermes Agent](https://github.com/l3ad3r1/Hermes-skills) 透過
-`~/.hermes/skills/<category>/<skill-name>/SKILL.md` 探索技能。本倉庫的
-`SKILL.md` 採用雙格式 frontmatter,無需任何修改即可同時在兩個生態中執行。
+### OpenClaw
 
 ```bash
-# 1. 克隆本倉庫
-git clone https://github.com/lovartai/lovart-skill.git
-cd lovart-skill
-
-# 2. 複製到 Hermes 技能目錄
-cp -r skills/lovart-skill ~/.hermes/skills/design/lovart-api
-
-# 3. 設定憑證(建議寫入 shell rc)
-export LOVART_ACCESS_KEY="ak_xxx"
-export LOVART_SECRET_KEY="sk_xxx"
+npx skills add lovartai/lovart-skill
 ```
 
-安裝完成後,Agent 會在任意視覺/音訊創作請求時自動觸發。在 Hermes 對話框中:
+從 ClawHub 取得最新發佈的 release。OpenClaw 會把 skill 安裝到你的專案中，並透過 `metadata.openclaw` 自動探索。
+
+### Hermes Agent
+
+Hermes Agent 從 `~/.hermes/skills/<category>/<skill-name>/SKILL.md` 路徑探索技能。
+這是**手動 / 社群安裝方式** —— 本倉庫目前尚無自動發佈目標。
+
+```bash
+git clone https://github.com/lovartai/lovart-skill.git
+cd lovart-skill
+cp -r skills/lovart-skill ~/.hermes/skills/design/lovart-api
+```
+
+Hermes 透過 `metadata.hermes.tags` 在任意視覺/音訊創作請求時自動觸發。在 Hermes 對話框中：
 
 ```
 /lovart-api 幫我畫一隻賽博龐克貓
 ```
 
-> 💡 技能的 `metadata.hermes.tags`(image-generation、video-generation、
-> audio-generation、3d、design 等)使其也能透過 Hermes 的標籤搜尋發現。
-
-### 雙格式相容性
-
-`SKILL.md` 的 frontmatter **同時**宣告兩個生態:
-
-```yaml
-metadata:
-  hermes:    { tags: [...], related_skills: [] }
-  openclaw:  { emoji: "🎨", requires: {...}, primaryEnv: ... }
-prerequisites:
-  commands: [python3]
-  env: [LOVART_ACCESS_KEY, LOVART_SECRET_KEY]
-  python: []
-```
-
-OpenClaw 安裝讀取 `metadata.openclaw` 而忽略其餘欄位;Hermes 讀取
-`metadata.hermes` 與 `prerequisites`。無行為分支、無重複維護。
+> 💡 兩條路徑安裝的是同一份檔案——`SKILL.md` 採用雙格式 frontmatter，同一份產物無需任何修改即可服務兩個生態。
 
 ## 🚀 快速開始
 
@@ -291,17 +272,23 @@ Skill 對網路瞬時錯誤會自動重試（3 次退避），但頻率限制和
 
 ## 🤖 整合方式
 
-### OpenClaw（推薦）
+本 skill 相容多種 agent 生態，請依你的實際環境選擇。
+
+### OpenClaw
 
 ```bash
 npx skills add lovartai/lovart-skill
 ```
 
-本 skill 為 [OpenClaw](https://openclaw.com) 一等公民 skill。安裝後 AI Agent 會自動偵測並呼叫，除環境變數外無需額外設定。
+OpenClaw 從 `SKILL.md` 讀取 `metadata.openclaw`，安裝後自動探索該 skill，除環境變數外無需額外設定。
+
+### Hermes Agent
+
+將 skill 放入 `~/.hermes/skills/<category>/<skill-name>/` 即可（詳見上方 `安裝` 一節的 Hermes 小節）。Hermes 讀取 `metadata.hermes`，透過 `/lovart-api` 斜線指令將視覺/音訊創作請求路由到本 skill。
 
 ### 其他 AI 助手
 
-同樣相容 Claude Code、Cursor 等可呼叫 Python 腳本的助手。完整整合協議見 `SKILL.md`。
+同樣相容 Claude Code、Cursor 等可呼叫 Python 腳本的助手。完整整合協定見 `SKILL.md`.
 
 ## 📁 專案結構
 
@@ -329,7 +316,7 @@ lovart-skill/
 ## 🏗️ 架構
 
 ```
-使用者 -> OpenClaw / Claude Code / 其他 AI 助手
+使用者 -> OpenClaw / Hermes Agent / Claude Code / 其他 AI 助手
             -> scripts/agent_skill.py (本 skill)
               -> Lovart OpenAPI (AK/SK HMAC-SHA256 簽章認證)
                 -> Lovart AI Agent (模型選擇、流程編排)
