@@ -186,6 +186,7 @@ Available models:
 | IMAGE | `generate_image_gpt_image_2_high` | GPT Image 2 High |  |
 | IMAGE | `generate_image_nano_banana_pro` | Nano Banana Pro |  |
 | IMAGE | `generate_image_nano_banana_2` | Nano Banana 2 |  |
+| IMAGE | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |  |
 | IMAGE | `generate_image_gpt_image_1_5` | GPT Image 1.5 |  |
 | IMAGE | `generate_image_seedream_v5` | Seedream 5.0 Lite |  |
 | IMAGE | `generate_image_luma_uni_1` | Luma uni-1 |  |
@@ -198,7 +199,6 @@ Available models:
 | IMAGE | `generate_image_midjourney` | Midjourney |  |
 | IMAGE | `generate_image_ideogram_v4` | Ideogram 4 |  |
 | IMAGE | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |  |
-| IMAGE | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |  |
 | VIDEO | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini | ⭐ Premium |

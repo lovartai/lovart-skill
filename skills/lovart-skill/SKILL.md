@@ -405,6 +405,7 @@ Available models for `--prefer-models`:
 | `generate_image_gpt_image_2_high` | GPT Image 2 High |
 | `generate_image_nano_banana_pro` | Nano Banana Pro |
 | `generate_image_nano_banana_2` | Nano Banana 2 |
+| `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |
 | `generate_image_gpt_image_1_5` | GPT Image 1.5 |
 | `generate_image_seedream_v5` | Seedream 5.0 Lite |
 | `generate_image_luma_uni_1` | Luma uni-1 |
@@ -417,7 +418,6 @@ Available models for `--prefer-models`:
 | `generate_image_midjourney` | Midjourney |
 | `generate_image_ideogram_v4` | Ideogram 4 |
 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |
-| `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |
 
 **VIDEO:**
 

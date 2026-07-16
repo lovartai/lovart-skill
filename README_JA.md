@@ -175,6 +175,7 @@ Agent が使用するモデルを制御する 3 つの方法：
 | 画像 | `generate_image_gpt_image_2_high` | GPT Image 2 High |  |
 | 画像 | `generate_image_nano_banana_pro` | Nano Banana Pro |  |
 | 画像 | `generate_image_nano_banana_2` | Nano Banana 2 |  |
+| 画像 | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |  |
 | 画像 | `generate_image_gpt_image_1_5` | GPT Image 1.5 |  |
 | 画像 | `generate_image_seedream_v5` | Seedream 5.0 Lite |  |
 | 画像 | `generate_image_luma_uni_1` | Luma uni-1 |  |
@@ -187,7 +188,6 @@ Agent が使用するモデルを制御する 3 つの方法：
 | 画像 | `generate_image_midjourney` | Midjourney |  |
 | 画像 | `generate_image_ideogram_v4` | Ideogram 4 |  |
 | 画像 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |  |
-| 画像 | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |  |
 | 動画 | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ |
 | 動画 | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ |
 | 動画 | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini | ⭐ |
