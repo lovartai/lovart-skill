@@ -199,6 +199,7 @@ Available models:
 | IMAGE | `generate_image_midjourney` | Midjourney |  |
 | IMAGE | `generate_image_ideogram_v4` | Ideogram 4 |  |
 | IMAGE | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |  |
+| IMAGE | `generate_image_p_image_ideogram` | Ideogram P-Image |  |
 | VIDEO | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini | ⭐ Premium |

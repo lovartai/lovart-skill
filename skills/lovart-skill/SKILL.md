@@ -418,6 +418,7 @@ Available models for `--prefer-models`:
 | `generate_image_midjourney` | Midjourney |
 | `generate_image_ideogram_v4` | Ideogram 4 |
 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |
+| `generate_image_p_image_ideogram` | Ideogram P-Image |
 
 **VIDEO:**
 
