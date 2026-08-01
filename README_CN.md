@@ -194,6 +194,7 @@ python3 scripts/agent_skill.py threads
 | 视频 | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini | ⭐ |
 | 视频 | `generate_video_kling_v3` | Kling 3.0 | ⭐ |
 | 视频 | `generate_video_kling_v3_omni` | Kling 3.0 Omni | ⭐ |
+| 视频 | `generate_video_minimax_h3` | MiniMax H3 |  |
 | 视频 | `generate_video_seedance_pro_v1_5` | Seedance 1.5 Pro |  |
 | 视频 | `generate_video_kling_v2_6` | Kling 2.6 | ⭐ |
 | 视频 | `generate_video_wan_v2_6` | Wan 2.6 |  |
