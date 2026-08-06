@@ -194,7 +194,7 @@ Agent が使用するモデルを制御する 3 つの方法：
 | 動画 | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini | ⭐ |
 | 動画 | `generate_video_kling_v3` | Kling 3.0 | ⭐ |
 | 動画 | `generate_video_kling_v3_omni` | Kling 3.0 Omni | ⭐ |
-| 動画 | `generate_video_minimax_h3` | MiniMax H3 |  |
+| 動画 | `generate_video_minimax_h3` | MiniMax H3 | ⭐ |
 | 動画 | `generate_video_seedance_pro_v1_5` | Seedance 1.5 Pro |  |
 | 動画 | `generate_video_kling_v2_6` | Kling 2.6 | ⭐ |
 | 動画 | `generate_video_wan_v2_6` | Wan 2.6 |  |

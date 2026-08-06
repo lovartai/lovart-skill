@@ -205,7 +205,7 @@ Available models:
 | VIDEO | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini | ⭐ Premium |
 | VIDEO | `generate_video_kling_v3` | Kling 3.0 | ⭐ Premium |
 | VIDEO | `generate_video_kling_v3_omni` | Kling 3.0 Omni | ⭐ Premium |
-| VIDEO | `generate_video_minimax_h3` | MiniMax H3 |  |
+| VIDEO | `generate_video_minimax_h3` | MiniMax H3 | ⭐ Premium |
 | VIDEO | `generate_video_seedance_pro_v1_5` | Seedance 1.5 Pro |  |
 | VIDEO | `generate_video_kling_v2_6` | Kling 2.6 | ⭐ Premium |
 | VIDEO | `generate_video_wan_v2_6` | Wan 2.6 |  |
