@@ -187,6 +187,8 @@ python3 scripts/agent_skill.py threads
 | 图片 | `generate_image_seedream_v4` | Seedream 4 |  |
 | 图片 | `generate_image_midjourney` | Midjourney |  |
 | 图片 | `generate_image_ideogram_v4` | Ideogram 4 |  |
+| 图片 | `generate_image_qwen_image3` | Qwen Image3 |  |
+| 图片 | `generate_image_qwen_image3_pro` | Qwen Image3 Pro |  |
 | 图片 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |  |
 | 图片 | `generate_image_p_image_ideogram` | Ideogram P-Image |  |
 | 视频 | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ |
@@ -205,6 +207,7 @@ python3 scripts/agent_skill.py threads
 | 视频 | `generate_video_veo3` | Veo 3 | ⭐ |
 | 视频 | `generate_video_vidu_q2` | Vidu Q2 |  |
 | 视频 | `generate_video_gemini_omni_flash` | Gemini Omni Flash | ⭐ |
+| 视频 | `generate_video_seedance_v2_5` | Seedance 2.5 | ⭐ |
 | 3D | `generate_3d_tripo` | Tripo |  |
 
 ## 🧠 推理模式

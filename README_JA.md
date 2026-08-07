@@ -187,6 +187,8 @@ Agent が使用するモデルを制御する 3 つの方法：
 | 画像 | `generate_image_seedream_v4` | Seedream 4 |  |
 | 画像 | `generate_image_midjourney` | Midjourney |  |
 | 画像 | `generate_image_ideogram_v4` | Ideogram 4 |  |
+| 画像 | `generate_image_qwen_image3` | Qwen Image3 |  |
+| 画像 | `generate_image_qwen_image3_pro` | Qwen Image3 Pro |  |
 | 画像 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |  |
 | 画像 | `generate_image_p_image_ideogram` | Ideogram P-Image |  |
 | 動画 | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ |
@@ -205,6 +207,7 @@ Agent が使用するモデルを制御する 3 つの方法：
 | 動画 | `generate_video_veo3` | Veo 3 | ⭐ |
 | 動画 | `generate_video_vidu_q2` | Vidu Q2 |  |
 | 動画 | `generate_video_gemini_omni_flash` | Gemini Omni Flash | ⭐ |
+| 動画 | `generate_video_seedance_v2_5` | Seedance 2.5 | ⭐ |
 | 3D | `generate_3d_tripo` | Tripo |  |
 
 ## 🧠 推論モード

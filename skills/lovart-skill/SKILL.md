@@ -417,6 +417,8 @@ Available models for `--prefer-models`:
 | `generate_image_seedream_v4` | Seedream 4 |
 | `generate_image_midjourney` | Midjourney |
 | `generate_image_ideogram_v4` | Ideogram 4 |
+| `generate_image_qwen_image3` | Qwen Image3 |
+| `generate_image_qwen_image3_pro` | Qwen Image3 Pro |
 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |
 | `generate_image_p_image_ideogram` | Ideogram P-Image |
 
@@ -440,6 +442,7 @@ Available models for `--prefer-models`:
 | `generate_video_veo3` | Veo 3 |
 | `generate_video_vidu_q2` | Vidu Q2 |
 | `generate_video_gemini_omni_flash` | Gemini Omni Flash |
+| `generate_video_seedance_v2_5` | Seedance 2.5 |
 
 **3D:**
 
