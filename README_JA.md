@@ -233,7 +233,6 @@ python3 scripts/agent_skill.py chat --prompt "このキャラクターを同じ�
 | 動画 | `generate_video_kling_v3` | Kling 3.0 | ⭐ |
 | 動画 | `generate_video_kling_v3_omni` | Kling 3.0 Omni | ⭐ |
 | 動画 | `generate_video_minimax_h3` | MiniMax H3 | ⭐ |
-| 動画 | `generate_video_seedance_pro_v1_5` | Seedance 1.5 Pro |  |
 | 動画 | `generate_video_kling_v2_6` | Kling 2.6 | ⭐ |
 | 動画 | `generate_video_wan_v2_6` | Wan 2.6 |  |
 | 動画 | `generate_video_veo3_1` | Veo 3.1 | ⭐ |
