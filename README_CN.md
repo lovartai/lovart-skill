@@ -214,7 +214,6 @@ python3 scripts/agent_skill.py chat --prompt "把这几个角色放进同一个�
 | 图片 | `generate_image_flux_2_max` | Flux.2 Max |  |
 | 图片 | `generate_image_flux_2_pro` | Flux.2 Pro |  |
 | 图片 | `generate_image_seedream_v4_5` | Seedream 4.5 |  |
-| 图片 | `generate_image_nano_banana` | Nano Banana |  |
 | 图片 | `generate_image_seedream_v4` | Seedream 4 |  |
 | 图片 | `generate_image_midjourney` | Midjourney |  |
 | 图片 | `generate_image_ideogram_v4` | Ideogram 4 |  |

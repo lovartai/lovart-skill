@@ -432,7 +432,6 @@ Available models for `--prefer-models`:
 | `generate_image_flux_2_max` | Flux.2 Max |
 | `generate_image_flux_2_pro` | Flux.2 Pro |
 | `generate_image_seedream_v4_5` | Seedream 4.5 |
-| `generate_image_nano_banana` | Nano Banana |
 | `generate_image_seedream_v4` | Seedream 4 |
 | `generate_image_midjourney` | Midjourney |
 | `generate_image_ideogram_v4` | Ideogram 4 |

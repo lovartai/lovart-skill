@@ -218,7 +218,6 @@ python3 scripts/agent_skill.py chat --prompt "このキャラクターを同じ�
 | 画像 | `generate_image_flux_2_max` | Flux.2 Max |  |
 | 画像 | `generate_image_flux_2_pro` | Flux.2 Pro |  |
 | 画像 | `generate_image_seedream_v4_5` | Seedream 4.5 |  |
-| 画像 | `generate_image_nano_banana` | Nano Banana |  |
 | 画像 | `generate_image_seedream_v4` | Seedream 4 |  |
 | 画像 | `generate_image_midjourney` | Midjourney |  |
 | 画像 | `generate_image_ideogram_v4` | Ideogram 4 |  |
