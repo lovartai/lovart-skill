@@ -208,6 +208,7 @@ python3 scripts/agent_skill.py chat --prompt "このキャラクターを同じ�
 | 画像 | `generate_image_gpt_image_2_low` | GPT Image 2 Low |  |
 | 画像 | `generate_image_gpt_image_2_medium` | GPT Image 2 Medium |  |
 | 画像 | `generate_image_gpt_image_2_high` | GPT Image 2 High |  |
+| 画像 | `generate_image_nano_banana_2_1` | Nano Banana 2.1 |  |
 | 画像 | `generate_image_nano_banana_pro` | Nano Banana Pro |  |
 | 画像 | `generate_image_nano_banana_2` | Nano Banana 2 |  |
 | 画像 | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |  |

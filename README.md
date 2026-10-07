@@ -219,6 +219,7 @@ Available models:
 | IMAGE | `generate_image_gpt_image_2_low` | GPT Image 2 Low |  |
 | IMAGE | `generate_image_gpt_image_2_medium` | GPT Image 2 Medium |  |
 | IMAGE | `generate_image_gpt_image_2_high` | GPT Image 2 High |  |
+| IMAGE | `generate_image_nano_banana_2_1` | Nano Banana 2.1 |  |
 | IMAGE | `generate_image_nano_banana_pro` | Nano Banana Pro |  |
 | IMAGE | `generate_image_nano_banana_2` | Nano Banana 2 |  |
 | IMAGE | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |  |
