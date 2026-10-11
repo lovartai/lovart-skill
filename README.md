@@ -256,7 +256,6 @@ Available models:
 | VIDEO | `generate_video_minimax_h3_max` | MiniMax H3 Max | ⭐ Premium |
 | VIDEO | `generate_video_wan_v3` | Wan 3.0 | ⭐ Premium |
 | VIDEO | `generate_video_wan_v3_prime` | Wan 3.0 Prime | ⭐ Premium |
-| 3D | `generate_3d_tripo` | Tripo |  |
 
 ## 🧠 Reasoning modes
 

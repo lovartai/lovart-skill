@@ -465,12 +465,6 @@ Available models for `--prefer-models`:
 | `generate_video_wan_v3` | Wan 3.0 |
 | `generate_video_wan_v3_prime` | Wan 3.0 Prime |
 
-**3D:**
-
-| Tool name | Display name |
-|---|---|
-| `generate_3d_tripo` | Tripo |
-
 When the user requests a specific model, prefer `--prefer-models` over putting model names in the prompt.
 
 **Option 3: Via --include-tools** (strongest steer toward specific tools):

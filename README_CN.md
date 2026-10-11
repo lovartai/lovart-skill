@@ -241,7 +241,6 @@ python3 scripts/agent_skill.py chat --prompt "把这几个角色放进同一个�
 | 视频 | `generate_video_minimax_h3_max` | MiniMax H3 Max | ⭐ |
 | 视频 | `generate_video_wan_v3` | Wan 3.0 | ⭐ |
 | 视频 | `generate_video_wan_v3_prime` | Wan 3.0 Prime | ⭐ |
-| 3D | `generate_3d_tripo` | Tripo |  |
 
 ## 🧠 推理模式
 
