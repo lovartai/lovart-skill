@@ -241,14 +241,15 @@ Available models:
 | VIDEO | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini | ⭐ Premium |
+| VIDEO | `generate_video_kling_v4` | Kling 4.0 |  |
 | VIDEO | `generate_video_kling_v3` | Kling 3.0 | ⭐ Premium |
 | VIDEO | `generate_video_kling_v3_omni` | Kling 3.0 Omni | ⭐ Premium |
 | VIDEO | `generate_video_minimax_h3` | MiniMax H3 | ⭐ Premium |
 | VIDEO | `generate_video_kling_v2_6` | Kling 2.6 | ⭐ Premium |
 | VIDEO | `generate_video_wan_v2_6` | Wan 2.6 |  |
 | VIDEO | `generate_video_veo3_1` | Veo 3.1 | ⭐ Premium |
-| VIDEO | `generate_video_veo3_1_fast` | Veo 3.1 Fast | ⭐ Premium |
 | VIDEO | `generate_video_kling_omni_v1` | Kling O1 | ⭐ Premium |
+| VIDEO | `generate_video_veo3_1_fast` | Veo 3.1 Fast | ⭐ Premium |
 | VIDEO | `generate_video_hailuo_v2_3` | Hailuo 2.3 |  |
 | VIDEO | `generate_video_veo3` | Veo 3 | ⭐ Premium |
 | VIDEO | `generate_video_vidu_q2` | Vidu Q2 |  |
