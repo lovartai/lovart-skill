@@ -151,14 +151,23 @@ class AgentSkill:
 
     def save_project(self, project_id: str = "", canvas: str = "",
                      project_name: str = "", project_type: int = 3) -> dict:
-        """Create (empty project_id) or update (with project_id) a project."""
+        """Create (empty project_id) or replace an existing project's canvas.
+
+        Updating replaces the whole canvas with the one given, so it needs a
+        canvas; to rename a project use rename_project. An existing project
+        keeps its own type, so project_type only applies on create.
+        """
+        if project_id and not canvas:
+            raise ValueError("save_project with a project_id replaces its canvas and needs one; "
+                             "use rename_project to change the name")
         body = {
             "project_id": project_id,
             "canvas": canvas,
             "project_cover_list": [],
             "pic_count": 0,
-            "project_type": project_type,
         }
+        if not project_id:
+            body["project_type"] = project_type
         if project_name:
             body["project_name"] = project_name
         return self._request("POST", f"{self.prefix}/project/save", body=body)
