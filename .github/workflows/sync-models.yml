@@ -22,7 +22,8 @@ concurrency:
 
 jobs:
   sync:
-    runs-on: ubuntu-latest
+    # GitHub-hosted runners are blocked by the org IP allow list; use the org runners on ci-liblib-1
+    runs-on: [self-hosted, org]
     steps:
       - uses: actions/checkout@v4
 
