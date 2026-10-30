@@ -30,9 +30,12 @@ on:
 permissions:
   contents: write  # needed by the release step to create a GitHub Release on tag push
 
+# Jobs run on the org self-hosted runners (GitHub-hosted runners are blocked by the org IP
+# allow list). This repo is public: never run fork pull requests on our machines.
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: [self-hosted, org]
     steps:
       - uses: actions/checkout@v4
       - name: Validate SKILL.md frontmatter
@@ -54,7 +57,7 @@ jobs:
   publish:
     needs: validate
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, org]
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
