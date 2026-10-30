@@ -239,7 +239,6 @@ python3 scripts/agent_skill.py chat --prompt "このキャラクターを同じ�
 | 動画 | `generate_video_kling_omni_v1` | Kling O1 | ⭐ |
 | 動画 | `generate_video_hailuo_v2_3` | Hailuo 2.3 |  |
 | 動画 | `generate_video_vidu_q2` | Vidu Q2 |  |
-| 動画 | `generate_video_gemini_omni_flash` | Gemini Omni Flash | ⭐ |
 | 動画 | `generate_video_minimax_h3_max` | MiniMax H3 Max | ⭐ |
 | 動画 | `generate_video_wan_v3` | Wan 3.0 | ⭐ |
 | 動画 | `generate_video_wan_v3_prime` | Wan 3.0 Prime | ⭐ |

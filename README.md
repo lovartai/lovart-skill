@@ -250,7 +250,6 @@ Available models:
 | VIDEO | `generate_video_kling_omni_v1` | Kling O1 | ⭐ Premium |
 | VIDEO | `generate_video_hailuo_v2_3` | Hailuo 2.3 |  |
 | VIDEO | `generate_video_vidu_q2` | Vidu Q2 |  |
-| VIDEO | `generate_video_gemini_omni_flash` | Gemini Omni Flash | ⭐ Premium |
 | VIDEO | `generate_video_minimax_h3_max` | MiniMax H3 Max | ⭐ Premium |
 | VIDEO | `generate_video_wan_v3` | Wan 3.0 | ⭐ Premium |
 | VIDEO | `generate_video_wan_v3_prime` | Wan 3.0 Prime | ⭐ Premium |

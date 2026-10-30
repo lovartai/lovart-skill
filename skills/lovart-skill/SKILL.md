@@ -458,7 +458,6 @@ Available models for `--prefer-models`:
 | `generate_video_kling_omni_v1` | Kling O1 |
 | `generate_video_hailuo_v2_3` | Hailuo 2.3 |
 | `generate_video_vidu_q2` | Vidu Q2 |
-| `generate_video_gemini_omni_flash` | Gemini Omni Flash |
 | `generate_video_minimax_h3_max` | MiniMax H3 Max |
 | `generate_video_wan_v3` | Wan 3.0 |
 | `generate_video_wan_v3_prime` | Wan 3.0 Prime |
