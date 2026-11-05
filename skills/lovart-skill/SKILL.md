@@ -450,6 +450,7 @@ Available models for `--prefer-models`:
 | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast |
 | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini |
 | `generate_video_kling_v4` | Kling 4.0 |
+| `generate_video_kling_v4_flash` | Kling 4.0 Flash |
 | `generate_video_kling_v3` | Kling 3.0 |
 | `generate_video_kling_v3_omni` | Kling 3.0 Omni |
 | `generate_video_minimax_h3` | MiniMax H3 |

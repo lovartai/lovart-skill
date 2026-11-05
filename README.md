@@ -241,7 +241,8 @@ Available models:
 | VIDEO | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini | ⭐ Premium |
-| VIDEO | `generate_video_kling_v4` | Kling 4.0 |  |
+| VIDEO | `generate_video_kling_v4` | Kling 4.0 | ⭐ Premium |
+| VIDEO | `generate_video_kling_v4_flash` | Kling 4.0 Flash | ⭐ Premium |
 | VIDEO | `generate_video_kling_v3` | Kling 3.0 | ⭐ Premium |
 | VIDEO | `generate_video_kling_v3_omni` | Kling 3.0 Omni | ⭐ Premium |
 | VIDEO | `generate_video_minimax_h3` | MiniMax H3 | ⭐ Premium |
