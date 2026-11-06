@@ -203,6 +203,18 @@ Available models:
 
 | Category | Tool name | Display name | Premium |
 |---|---|---|---|
+| IMAGE | `generate_image_gpt_image_2_6_flare` | GPT Image 2.6 Flare Auto |  |
+| IMAGE | `generate_image_gpt_image_2_6_flare_low` | GPT Image 2.6 Flare Low |  |
+| IMAGE | `generate_image_gpt_image_2_6_flare_medium` | GPT Image 2.6 Flare Medium |  |
+| IMAGE | `generate_image_gpt_image_2_6_flare_high` | GPT Image 2.6 Flare High |  |
+| IMAGE | `generate_image_gpt_image_2_6_flare_xhigh` | GPT Image 2.6 Flare xhigh |  |
+| IMAGE | `generate_image_gpt_image_2_6_flare_max` | GPT Image 2.6 Flare Max |  |
+| IMAGE | `generate_image_gpt_image_2_6_sunburst` | GPT Image 2.6 Sunburst Auto |  |
+| IMAGE | `generate_image_gpt_image_2_6_sunburst_low` | GPT Image 2.6 Sunburst Low |  |
+| IMAGE | `generate_image_gpt_image_2_6_sunburst_medium` | GPT Image 2.6 Sunburst Medium |  |
+| IMAGE | `generate_image_gpt_image_2_6_sunburst_high` | GPT Image 2.6 Sunburst High |  |
+| IMAGE | `generate_image_gpt_image_2_6_sunburst_xhigh` | GPT Image 2.6 Sunburst xhigh |  |
+| IMAGE | `generate_image_gpt_image_2_6_sunburst_max` | GPT Image 2.6 Sunburst Max |  |
 | IMAGE | `generate_image_gpt_image_2_5_flare` | GPT Image 2.5 Flare Auto |  |
 | IMAGE | `generate_image_gpt_image_2_5_flare_low` | GPT Image 2.5 Flare Low |  |
 | IMAGE | `generate_image_gpt_image_2_5_flare_medium` | GPT Image 2.5 Flare Medium |  |

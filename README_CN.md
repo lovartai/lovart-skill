@@ -188,6 +188,18 @@ python3 scripts/agent_skill.py chat --prompt "把这几个角色放进同一个�
 
 | 类别 | Tool name | 显示名 | 会员专属 |
 |---|---|---|---|
+| 图片 | `generate_image_gpt_image_2_6_flare` | GPT Image 2.6 Flare Auto |  |
+| 图片 | `generate_image_gpt_image_2_6_flare_low` | GPT Image 2.6 Flare Low |  |
+| 图片 | `generate_image_gpt_image_2_6_flare_medium` | GPT Image 2.6 Flare Medium |  |
+| 图片 | `generate_image_gpt_image_2_6_flare_high` | GPT Image 2.6 Flare High |  |
+| 图片 | `generate_image_gpt_image_2_6_flare_xhigh` | GPT Image 2.6 Flare xhigh |  |
+| 图片 | `generate_image_gpt_image_2_6_flare_max` | GPT Image 2.6 Flare Max |  |
+| 图片 | `generate_image_gpt_image_2_6_sunburst` | GPT Image 2.6 Sunburst Auto |  |
+| 图片 | `generate_image_gpt_image_2_6_sunburst_low` | GPT Image 2.6 Sunburst Low |  |
+| 图片 | `generate_image_gpt_image_2_6_sunburst_medium` | GPT Image 2.6 Sunburst Medium |  |
+| 图片 | `generate_image_gpt_image_2_6_sunburst_high` | GPT Image 2.6 Sunburst High |  |
+| 图片 | `generate_image_gpt_image_2_6_sunburst_xhigh` | GPT Image 2.6 Sunburst xhigh |  |
+| 图片 | `generate_image_gpt_image_2_6_sunburst_max` | GPT Image 2.6 Sunburst Max |  |
 | 图片 | `generate_image_gpt_image_2_5_flare` | GPT Image 2.5 Flare Auto |  |
 | 图片 | `generate_image_gpt_image_2_5_flare_low` | GPT Image 2.5 Flare Low |  |
 | 图片 | `generate_image_gpt_image_2_5_flare_medium` | GPT Image 2.5 Flare Medium |  |
