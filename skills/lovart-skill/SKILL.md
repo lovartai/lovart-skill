@@ -406,6 +406,7 @@ Available models for `--prefer-models`:
 
 | Tool name | Display name |
 |---|---|
+| `generate_image_seedream_v5_5` | Seedream 5.5 |
 | `generate_image_gpt_image_2_6_flare` | GPT Image 2.6 Flare Auto |
 | `generate_image_gpt_image_2_6_flare_low` | GPT Image 2.6 Flare Low |
 | `generate_image_gpt_image_2_6_flare_medium` | GPT Image 2.6 Flare Medium |
@@ -452,6 +453,7 @@ Available models for `--prefer-models`:
 | `generate_image_qwen_image3_pro` | Qwen Image3 Pro |
 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |
 | `generate_image_p_image_ideogram` | Ideogram P-Image |
+| `generate_image_minimax_h3` | MiniMax H3 Image |
 
 **VIDEO:**
 

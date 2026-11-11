@@ -188,6 +188,7 @@ python3 scripts/agent_skill.py chat --prompt "把这几个角色放进同一个�
 
 | 类别 | Tool name | 显示名 | 会员专属 |
 |---|---|---|---|
+| 图片 | `generate_image_seedream_v5_5` | Seedream 5.5 |  |
 | 图片 | `generate_image_gpt_image_2_6_flare` | GPT Image 2.6 Flare Auto |  |
 | 图片 | `generate_image_gpt_image_2_6_flare_low` | GPT Image 2.6 Flare Low |  |
 | 图片 | `generate_image_gpt_image_2_6_flare_medium` | GPT Image 2.6 Flare Medium |  |
@@ -234,6 +235,7 @@ python3 scripts/agent_skill.py chat --prompt "把这几个角色放进同一个�
 | 图片 | `generate_image_qwen_image3_pro` | Qwen Image3 Pro |  |
 | 图片 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |  |
 | 图片 | `generate_image_p_image_ideogram` | Ideogram P-Image |  |
+| 图片 | `generate_image_minimax_h3` | MiniMax H3 Image |  |
 | 视频 | `generate_video_seedance_v2_5` | Seedance 2.5 | ⭐ |
 | 视频 | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ |
 | 视频 | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ |
