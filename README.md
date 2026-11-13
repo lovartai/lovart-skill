@@ -251,6 +251,7 @@ Available models:
 | IMAGE | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |  |
 | IMAGE | `generate_image_p_image_ideogram` | Ideogram P-Image |  |
 | IMAGE | `generate_image_minimax_h3` | MiniMax H3 Image |  |
+| VIDEO | `generate_video_seedance_v2_5_flash` | Seedance 2.5 Flash | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_5` | Seedance 2.5 | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ Premium |
 | VIDEO | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ Premium |

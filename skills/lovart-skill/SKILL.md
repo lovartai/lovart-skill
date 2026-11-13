@@ -459,6 +459,7 @@ Available models for `--prefer-models`:
 
 | Tool name | Display name |
 |---|---|
+| `generate_video_seedance_v2_5_flash` | Seedance 2.5 Flash |
 | `generate_video_seedance_v2_5` | Seedance 2.5 |
 | `generate_video_seedance_v2_0` | Seedance 2.0 |
 | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast |

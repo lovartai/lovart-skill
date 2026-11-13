@@ -236,6 +236,7 @@ python3 scripts/agent_skill.py chat --prompt "把這幾個角色放進同一個�
 | 圖片 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |  |
 | 圖片 | `generate_image_p_image_ideogram` | Ideogram P-Image |  |
 | 圖片 | `generate_image_minimax_h3` | MiniMax H3 Image |  |
+| 影片 | `generate_video_seedance_v2_5_flash` | Seedance 2.5 Flash | ⭐ |
 | 影片 | `generate_video_seedance_v2_5` | Seedance 2.5 | ⭐ |
 | 影片 | `generate_video_seedance_v2_0` | Seedance 2.0 | ⭐ |
 | 影片 | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast | ⭐ |
