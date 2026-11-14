@@ -438,46 +438,47 @@ Available models for `--prefer-models`:
 | `generate_image_nano_banana_2_1` | Nano Banana 2.1 |
 | `generate_image_nano_banana_pro` | Nano Banana Pro |
 | `generate_image_nano_banana_2` | Nano Banana 2 |
+| `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |
 | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |
-| `generate_image_gpt_image_1_5` | GPT Image 1.5 |
 | `generate_image_seedream_v5` | Seedream 5.0 Lite |
+| `generate_image_seedream_v4_5` | Seedream 4.5 |
+| `generate_image_seedream_v4` | Seedream 4 |
+| `generate_image_minimax_h3` | MiniMax H3 Image |
+| `generate_image_minimax_h3_highspeed` | Minimax h3 highspeed |
+| `generate_image_qwen_image3` | Qwen Image3 |
+| `generate_image_qwen_image3_pro` | Qwen Image3 Pro |
+| `generate_image_gpt_image_1_5` | GPT Image 1.5 |
 | `generate_image_luma_uni_1` | Luma uni-1 |
 | `generate_image_luma_uni_1_max` | Luma uni-1-max |
 | `generate_image_flux_2_max` | Flux.2 Max |
 | `generate_image_flux_2_pro` | Flux.2 Pro |
-| `generate_image_seedream_v4_5` | Seedream 4.5 |
-| `generate_image_seedream_v4` | Seedream 4 |
 | `generate_image_midjourney` | Midjourney |
 | `generate_image_ideogram_v4` | Ideogram 4 |
-| `generate_image_qwen_image3` | Qwen Image3 |
-| `generate_image_qwen_image3_pro` | Qwen Image3 Pro |
-| `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |
 | `generate_image_p_image_ideogram` | Ideogram P-Image |
-| `generate_image_minimax_h3` | MiniMax H3 Image |
 
 **VIDEO:**
 
 | Tool name | Display name |
 |---|---|
-| `generate_video_seedance_v2_5_flash` | Seedance 2.5 Flash |
 | `generate_video_seedance_v2_5` | Seedance 2.5 |
+| `generate_video_seedance_v2_5_flash` | Seedance 2.5 Flash |
 | `generate_video_seedance_v2_0` | Seedance 2.0 |
 | `generate_video_seedance_v2_0_fast` | Seedance 2.0 Fast |
 | `generate_video_seedance_v2_0_mini` | Seedance 2.0 Mini |
+| `generate_video_wan_v3` | Wan 3.0 |
+| `generate_video_wan_v3_prime` | Wan 3.0 Prime |
+| `generate_video_minimax_h3` | MiniMax H3 |
+| `generate_video_minimax_h3_max` | MiniMax H3 Max |
 | `generate_video_kling_v4` | Kling 4.0 |
 | `generate_video_kling_v4_flash` | Kling 4.0 Flash |
 | `generate_video_kling_v3` | Kling 3.0 |
 | `generate_video_kling_v3_omni` | Kling 3.0 Omni |
-| `generate_video_minimax_h3` | MiniMax H3 |
 | `generate_video_kling_v2_6` | Kling 2.6 |
-| `generate_video_wan_v2_6` | Wan 2.6 |
 | `generate_video_kling_omni_v1` | Kling O1 |
+| `generate_video_wan_v2_6` | Wan 2.6 |
 | `generate_video_hailuo_v2_3` | Hailuo 2.3 |
 | `generate_video_vidu_q2` | Vidu Q2 |
 | `generate_video_gemini_omni_flash` | Gemini Omni Flash |
-| `generate_video_minimax_h3_max` | MiniMax H3 Max |
-| `generate_video_wan_v3` | Wan 3.0 |
-| `generate_video_wan_v3_prime` | Wan 3.0 Prime |
 
 When the user requests a specific model, prefer `--prefer-models` over putting model names in the prompt.
 
