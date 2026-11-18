@@ -242,6 +242,7 @@ Available models:
 | IMAGE | `generate_image_seedream_v4` | Seedream 4 |  |
 | IMAGE | `generate_image_minimax_h3` | MiniMax H3 Image |  |
 | IMAGE | `generate_image_minimax_h3_highspeed` | Minimax h3 highspeed | ⭐ Premium |
+| IMAGE | `generate_image_kling_v4` | Kling Image 4.0 |  |
 | IMAGE | `generate_image_qwen_image3` | Qwen Image3 |  |
 | IMAGE | `generate_image_qwen_image3_pro` | Qwen Image3 Pro |  |
 | IMAGE | `generate_image_gpt_image_1_5` | GPT Image 1.5 |  |

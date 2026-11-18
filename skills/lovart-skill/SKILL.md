@@ -445,6 +445,7 @@ Available models for `--prefer-models`:
 | `generate_image_seedream_v4` | Seedream 4 |
 | `generate_image_minimax_h3` | MiniMax H3 Image |
 | `generate_image_minimax_h3_highspeed` | Minimax h3 highspeed |
+| `generate_image_kling_v4` | Kling Image 4.0 |
 | `generate_image_qwen_image3` | Qwen Image3 |
 | `generate_image_qwen_image3_pro` | Qwen Image3 Pro |
 | `generate_image_gpt_image_1_5` | GPT Image 1.5 |
