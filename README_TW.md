@@ -222,8 +222,6 @@ python3 scripts/agent_skill.py chat --prompt "把這幾個角色放進同一個�
 | 圖片 | `generate_image_nano_banana_2` | Nano Banana 2 |  |
 | 圖片 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |  |
 | 圖片 | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |  |
-| 圖片 | `generate_image_seedream_v5` | Seedream 5.0 Lite |  |
-| 圖片 | `generate_image_seedream_v4_5` | Seedream 4.5 |  |
 | 圖片 | `generate_image_seedream_v4` | Seedream 4 |  |
 | 圖片 | `generate_image_minimax_h3` | MiniMax H3 Image |  |
 | 圖片 | `generate_image_minimax_h3_highspeed` | Minimax h3 highspeed | ⭐ |

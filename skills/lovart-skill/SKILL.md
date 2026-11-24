@@ -440,8 +440,6 @@ Available models for `--prefer-models`:
 | `generate_image_nano_banana_2` | Nano Banana 2 |
 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |
 | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |
-| `generate_image_seedream_v5` | Seedream 5.0 Lite |
-| `generate_image_seedream_v4_5` | Seedream 4.5 |
 | `generate_image_seedream_v4` | Seedream 4 |
 | `generate_image_minimax_h3` | MiniMax H3 Image |
 | `generate_image_minimax_h3_highspeed` | Minimax h3 highspeed |
