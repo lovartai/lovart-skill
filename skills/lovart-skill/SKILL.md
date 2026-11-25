@@ -406,7 +406,6 @@ Available models for `--prefer-models`:
 
 | Tool name | Display name |
 |---|---|
-| `generate_image_seedream_v5_5` | Seedream 5.5 |
 | `generate_image_gpt_image_2_6_flare` | GPT Image 2.6 Flare Auto |
 | `generate_image_gpt_image_2_6_flare_low` | GPT Image 2.6 Flare Low |
 | `generate_image_gpt_image_2_6_flare_medium` | GPT Image 2.6 Flare Medium |
@@ -439,6 +438,7 @@ Available models for `--prefer-models`:
 | `generate_image_nano_banana_pro` | Nano Banana Pro |
 | `generate_image_nano_banana_2` | Nano Banana 2 |
 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |
+| `generate_image_seedream_v5_5` | Seedream 5.5 |
 | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |
 | `generate_image_seedream_v4` | Seedream 4 |
 | `generate_image_minimax_h3` | MiniMax H3 Image |

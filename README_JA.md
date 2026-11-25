@@ -192,7 +192,6 @@ python3 scripts/agent_skill.py chat --prompt "このキャラクターを同じ�
 
 | カテゴリ | Tool name | 表示名 | プレミアム |
 |---|---|---|---|
-| 画像 | `generate_image_seedream_v5_5` | Seedream 5.5 |  |
 | 画像 | `generate_image_gpt_image_2_6_flare` | GPT Image 2.6 Flare Auto |  |
 | 画像 | `generate_image_gpt_image_2_6_flare_low` | GPT Image 2.6 Flare Low |  |
 | 画像 | `generate_image_gpt_image_2_6_flare_medium` | GPT Image 2.6 Flare Medium |  |
@@ -225,6 +224,7 @@ python3 scripts/agent_skill.py chat --prompt "このキャラクターを同じ�
 | 画像 | `generate_image_nano_banana_pro` | Nano Banana Pro |  |
 | 画像 | `generate_image_nano_banana_2` | Nano Banana 2 |  |
 | 画像 | `generate_image_nano_banana_2_lite` | Nano Banana 2 Lite |  |
+| 画像 | `generate_image_seedream_v5_5` | Seedream 5.5 |  |
 | 画像 | `generate_image_seedream_v5_pro` | Seedream 5.0 Pro |  |
 | 画像 | `generate_image_seedream_v4` | Seedream 4 |  |
 | 画像 | `generate_image_minimax_h3` | MiniMax H3 Image |  |
